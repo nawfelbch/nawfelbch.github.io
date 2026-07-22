@@ -1361,6 +1361,9 @@
   <script>
   (() => {
     'use strict';
+    
+    // URL de l'app web où les clients déposent leur annonce
+const APP_URL = 'https://app.secoto-transport.fr';
 
     /* ── Année dynamique ── */
     const yearEl = document.getElementById('year');
@@ -1584,15 +1587,41 @@
 
     /* ── Devis form submit ── */
     window.submitDevis = function(e) {
-      e.preventDefault();
-      netlifySubmit(e.target, 'fs', 7000);
-    };
+  e.preventDefault();
+  const g = id => (document.getElementById(id)?.value || '').trim();
+  const p = new URLSearchParams();
+  const nom = [g('f-prenom'), g('f-nom')].filter(Boolean).join(' ');
+  if (nom)            p.set('name', nom);
+  if (g('f-tel'))     p.set('phone', g('f-tel'));
+  if (g('f-email'))   p.set('email', g('f-email'));
+  if (g('f-depart'))  p.set('from', g('f-depart'));
+  if (g('f-arrivee')) p.set('to', g('f-arrivee'));
+  if (g('f-km'))      p.set('km', g('f-km'));
+  if (g('f-date'))    p.set('date', g('f-date'));
+  p.set('service', currentService);
+
+  let vehicule = '';
+  if (currentService === 'auto') {
+    vehicule = [g('f-marque-auto'), g('f-modele-auto')].filter(Boolean).join(' ');
+    if (g('f-info-auto')) p.set('notes', g('f-info-auto'));
+  } else {
+    const nb = g('f-nb-motos');
+    vehicule = [(nb && nb !== '1' ? nb + ' motos' : ''), g('f-marque-moto'), g('f-modele-moto')].filter(Boolean).join(' ');
+    if (g('f-info-moto')) p.set('notes', g('f-info-moto'));
+  }
+  if (vehicule) p.set('vehicle', vehicule);
+
+  window.location.href = APP_URL + '/?' + p.toString();
+};
 
     /* ── Contact form submit ── */
     window.submitContact = function(e) {
-      e.preventDefault();
-      netlifySubmit(e.target, 'fc', 6000);
-    };
+  e.preventDefault();
+  const g = id => (document.getElementById(id)?.value || '').trim();
+  const sujet = encodeURIComponent('Contact site — ' + [g('c-prenom'), g('c-nom')].filter(Boolean).join(' '));
+  const corps = encodeURIComponent(g('c-message') + '\n\nEmail : ' + g('c-email'));
+  window.location.href = 'mailto:contact@secoto.fr?subject=' + sujet + '&body=' + corps;
+};
 
     /* ── Testimonials carousel ── */
     (function () {

@@ -1364,6 +1364,8 @@
     
     // URL de l'app web où les clients déposent leur annonce
 const APP_URL = 'https://app.secoto-transport.fr';
+    // Tous les boutons "Devis" mènent directement à l'app
+document.querySelectorAll('a[href="#devis"]').forEach(a => a.setAttribute('href', APP_URL));
 
     /* ── Année dynamique ── */
     const yearEl = document.getElementById('year');

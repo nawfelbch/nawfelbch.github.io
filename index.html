@@ -1588,32 +1588,78 @@ document.querySelectorAll('a[href="#devis"]').forEach(a => a.setAttribute('href'
     }
 
     /* ── Devis form submit ── */
-    window.submitDevis = function(e) {
+    // Identifiants Supabase (la clé anon est publique, prévue pour le navigateur)
+const SUPA_URL = 'https://znnigxmzacukpfueqfrh.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpubmlneG16YWN1a3BmdWVxZnJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODQ2NzgsImV4cCI6MjA5MTg2MDY3OH0.YNnKgsxm5AoorOsk-FVRWBgP2AVFI6rZKSmlbUSsfXo';
+
+window.submitDevis = function(e) {
   e.preventDefault();
   const g = id => (document.getElementById(id)?.value || '').trim();
-  const p = new URLSearchParams();
-  const nom = [g('f-prenom'), g('f-nom')].filter(Boolean).join(' ');
-  if (nom)            p.set('name', nom);
-  if (g('f-tel'))     p.set('phone', g('f-tel'));
-  if (g('f-email'))   p.set('email', g('f-email'));
-  if (g('f-depart'))  p.set('from', g('f-depart'));
-  if (g('f-arrivee')) p.set('to', g('f-arrivee'));
-  if (g('f-km'))      p.set('km', g('f-km'));
-  if (g('f-date'))    p.set('date', g('f-date'));
-  p.set('service', currentService);
 
+  // Téléphone obligatoire pour recontacter
+  const tel = g('f-tel');
+  if (tel.replace(/\D/g, '').length < 6) {
+    alert('Merci d’indiquer un numéro de téléphone valide pour que nous puissions vous rappeler.');
+    document.getElementById('f-tel').focus();
+    return;
+  }
+
+  const nom = [g('f-prenom'), g('f-nom')].filter(Boolean).join(' ') || 'Client web';
   let vehicule = '';
+  let notes = '';
   if (currentService === 'auto') {
     vehicule = [g('f-marque-auto'), g('f-modele-auto')].filter(Boolean).join(' ');
-    if (g('f-info-auto')) p.set('notes', g('f-info-auto'));
+    notes = g('f-info-auto');
   } else {
     const nb = g('f-nb-motos');
     vehicule = [(nb && nb !== '1' ? nb + ' motos' : ''), g('f-marque-moto'), g('f-modele-moto')].filter(Boolean).join(' ');
-    if (g('f-info-moto')) p.set('notes', g('f-info-moto'));
+    notes = g('f-info-moto');
   }
-  if (vehicule) p.set('vehicle', vehicule);
 
-  window.location.href = APP_URL + '/?' + p.toString();
+  const row = {
+    public_ref: 'REQ-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000),
+    type: currentService === 'moto' ? 'plateau' : 'convoyage',
+    status: 'pending',
+    from_city: g('f-depart') || null,
+    to_city: g('f-arrivee') || null,
+    mission_date: g('f-date') || null,
+    vehicle: vehicule || null,
+    distance_km: g('f-km') ? Number(g('f-km')) : null,
+    client_name: nom,
+    client_contact: g('f-email') || null,
+    client_phone: tel,
+    price_mode: 'fixed',
+    notes: notes || null,
+    created_by_role: 'guest',
+    requester_id: null,
+    requester_name: nom
+  };
+
+  const btn = e.target.querySelector('button[type="submit"]');
+  if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+
+  fetch(SUPA_URL + '/rest/v1/mission_requests', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPA_KEY,
+      'Authorization': 'Bearer ' + SUPA_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(row)
+  })
+  .then(r => {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const ok = document.getElementById('fs');
+    ok.textContent = '✓ Demande envoyée ! Nous vous rappelons sous 2h au ' + tel + '.';
+    ok.style.display = 'block';
+    e.target.querySelectorAll('input,select,textarea,button').forEach(f => f.disabled = true);
+    ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  })
+  .catch(() => {
+    alert('Une erreur est survenue. Appelez-nous au 07 83 27 82 31 ou réessayez.');
+    if (btn) { btn.disabled = false; btn.textContent = 'Envoyer ma demande de devis →'; }
+  });
 };
 
     /* ── Contact form submit ── */

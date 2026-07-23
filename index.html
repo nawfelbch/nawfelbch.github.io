@@ -511,41 +511,57 @@
 
   <style id="neo-secoto">
   :root{
-    --neo-d: rgba(0,0,0,.55);
-    --neo-l: rgba(255,255,255,.05);
-    --neo-raise:    7px 7px 18px var(--neo-d), -7px -7px 18px var(--neo-l);
-    --neo-raise-sm: 4px 4px 11px var(--neo-d), -4px -4px 11px var(--neo-l);
-    --neo-inset:    inset 4px 4px 9px var(--neo-d), inset -4px -4px 9px var(--neo-l);
+    --neo-card:#131c2e;
+    --neo-d: rgba(0,0,0,.42);
+    --neo-l: rgba(255,255,255,.04);
+    --neo-raise:    6px 6px 14px var(--neo-d), -6px -6px 14px var(--neo-l);
+    --neo-raise-sm: 3px 3px 8px  var(--neo-d), -3px -3px 8px  var(--neo-l);
+    --neo-inset:    inset 3px 3px 7px var(--neo-d), inset -3px -3px 7px var(--neo-l);
   }
-  [data-theme="light"]{ --neo-d: rgba(30,45,80,.16); --neo-l: rgba(255,255,255,.95); }
+  [data-theme="light"]{ --neo-card:#eef2f8; --neo-d: rgba(30,45,80,.14); --neo-l: rgba(255,255,255,1); }
 
-  .tilt-card, .why-card, .tarif-card, .step-card, .testi-card, .glass-stat,
-  .est-price-block, .est-rule, .devis-shell, .legal-modal, .cinfo-ico{
+  /* Cartes : fond PLEIN (stoppe la texture) + relief doux */
+  .tilt-card,.why-card,.tarif-card,.step-card,.testi-card,.glass-stat,
+  .devis-shell,.legal-modal,.cinfo-ico{
+    background: var(--neo-card) !important;
     border: none !important;
     box-shadow: var(--neo-raise) !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
   }
-  .tarif-card.feat{ box-shadow: var(--neo-raise), 0 0 0 1px rgba(245,98,15,.35) !important; }
+  .tarif-card.feat{
+    background: linear-gradient(160deg, rgba(245,98,15,.14), var(--neo-card)) !important;
+    box-shadow: var(--neo-raise), 0 0 0 1px rgba(245,98,15,.35) !important;
+  }
 
-  .field input, .field select, .field textarea{
-    border: none !important;
-    background: var(--surface) !important;
+  /* Blocs internes : en creux (evite le relief sur relief) */
+  .est-price-block,.est-rule{
+    background: rgba(0,0,0,.16) !important; border: none !important;
     box-shadow: var(--neo-inset) !important;
   }
-  .field input:focus, .field select:focus, .field textarea:focus{
+  .est-inc-list span,.est-rule-row,.devis-block{ box-shadow: none !important; }
+
+  /* Champs : en creux */
+  .field input,.field select,.field textarea{
+    background: rgba(0,0,0,.18) !important; border: none !important;
+    box-shadow: var(--neo-inset) !important;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
     box-shadow: var(--neo-inset), 0 0 0 3px rgba(245,98,15,.20) !important;
   }
+  [data-theme="light"] .field input,[data-theme="light"] .field select,
+  [data-theme="light"] .field textarea,[data-theme="light"] .est-price-block,
+  [data-theme="light"] .est-rule{ background: rgba(0,0,0,.05) !important; }
 
-  .btn{ box-shadow: var(--neo-raise-sm), 0 4px 20px rgba(245,98,15,.30) !important; }
+  /* Boutons */
+  .btn{ box-shadow: var(--neo-raise-sm), 0 4px 18px rgba(245,98,15,.28) !important; }
   .btn:active{ box-shadow: var(--neo-inset) !important; transform: translateY(1px) !important; }
-  .btn-nav{ box-shadow: var(--neo-raise-sm), 0 4px 18px rgba(245,98,15,.30) !important; }
-  .btn-ghost{ border: none !important; background: var(--surface) !important; box-shadow: var(--neo-raise-sm) !important; }
-  .btn-ghost:hover{ box-shadow: var(--neo-raise-sm), 0 0 0 1px rgba(245,98,15,.4) !important; }
-
-  .theme-toggle, .testi-btn, .faq-arrow, .legal-close, #btt{
-    border: none !important;
-    box-shadow: var(--neo-raise-sm) !important;
-  }
+  .btn-nav{ box-shadow: var(--neo-raise-sm), 0 4px 16px rgba(245,98,15,.28) !important; }
+  .btn-ghost{ border: none !important; background: var(--neo-card) !important; box-shadow: var(--neo-raise-sm) !important; }
+  .theme-toggle,.testi-btn,.faq-arrow,.legal-close,#btt{ border: none !important; box-shadow: var(--neo-raise-sm) !important; }
   .faq-item.open .faq-arrow{ box-shadow: var(--neo-inset) !important; }
+
+  /* Voile de bruit attenue pour un rendu parfaitement net */
+  body::before{ opacity: .008 !important; }
 </style>
   
 </head>

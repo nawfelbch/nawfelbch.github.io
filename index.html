@@ -509,6 +509,45 @@
     }
   </style>
 
+  <style id="neo-secoto">
+  :root{
+    --neo-d: rgba(0,0,0,.55);
+    --neo-l: rgba(255,255,255,.05);
+    --neo-raise:    7px 7px 18px var(--neo-d), -7px -7px 18px var(--neo-l);
+    --neo-raise-sm: 4px 4px 11px var(--neo-d), -4px -4px 11px var(--neo-l);
+    --neo-inset:    inset 4px 4px 9px var(--neo-d), inset -4px -4px 9px var(--neo-l);
+  }
+  [data-theme="light"]{ --neo-d: rgba(30,45,80,.16); --neo-l: rgba(255,255,255,.95); }
+
+  .tilt-card, .why-card, .tarif-card, .step-card, .testi-card, .glass-stat,
+  .est-price-block, .est-rule, .devis-shell, .legal-modal, .cinfo-ico{
+    border: none !important;
+    box-shadow: var(--neo-raise) !important;
+  }
+  .tarif-card.feat{ box-shadow: var(--neo-raise), 0 0 0 1px rgba(245,98,15,.35) !important; }
+
+  .field input, .field select, .field textarea{
+    border: none !important;
+    background: var(--surface) !important;
+    box-shadow: var(--neo-inset) !important;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    box-shadow: var(--neo-inset), 0 0 0 3px rgba(245,98,15,.20) !important;
+  }
+
+  .btn{ box-shadow: var(--neo-raise-sm), 0 4px 20px rgba(245,98,15,.30) !important; }
+  .btn:active{ box-shadow: var(--neo-inset) !important; transform: translateY(1px) !important; }
+  .btn-nav{ box-shadow: var(--neo-raise-sm), 0 4px 18px rgba(245,98,15,.30) !important; }
+  .btn-ghost{ border: none !important; background: var(--surface) !important; box-shadow: var(--neo-raise-sm) !important; }
+  .btn-ghost:hover{ box-shadow: var(--neo-raise-sm), 0 0 0 1px rgba(245,98,15,.4) !important; }
+
+  .theme-toggle, .testi-btn, .faq-arrow, .legal-close, #btt{
+    border: none !important;
+    box-shadow: var(--neo-raise-sm) !important;
+  }
+  .faq-item.open .faq-arrow{ box-shadow: var(--neo-inset) !important; }
+</style>
+  
 </head>
 <body>
 

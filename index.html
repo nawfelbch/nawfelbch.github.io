@@ -276,7 +276,8 @@
     .logo{font-family:var(--font-h) !important;font-size:2rem;letter-spacing:.1em;color:var(--txt) !important;text-decoration:none;display:flex;align-items:center;position:relative;}
     .logo .o{color:#f5620f !important;position:relative;}
     .logo .o::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--orange-g);border-radius:2px;}
-    nav{margin-left:auto;display:flex;align-items:center;gap:2.2rem;}
+    nav{margin-left:auto;display:flex;align-items:center;gap:1.6rem;}
+    nav a{white-space:nowrap;}
     nav a:not(.btn-nav){color:rgba(232,237,245,.6) !important;text-decoration:none;font-size:.88rem;font-weight:500;letter-spacing:.06em;position:relative;transition:color .2s;}
     nav a:not(.btn-nav)::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1px;background:#f5620f;transition:right .25s;}
     nav a:not(.btn-nav):hover{color:#e8edf5 !important;}
@@ -314,7 +315,7 @@
     .hero-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,98,15,.1);border:1px solid rgba(245,98,15,.25);color:#ff7c35 !important;font-size:.77rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:.35rem 1rem .35rem .5rem;border-radius:30px;margin-bottom:1.6rem;}
     .hero-pill-dot{width:6px;height:6px;background:#f5620f;border-radius:50%;animation:pulse 1.8s ease-in-out infinite;}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
-    .hero-title{font-family:var(--font-h) !important;font-size:clamp(3.2rem,6vw,5.5rem);line-height:.95;letter-spacing:.02em;color:#e8edf5 !important;margin-bottom:1.5rem;text-transform:uppercase;}
+    .hero-title{font-family:var(--font-h) !important;font-size:clamp(3rem,5vw,4.8rem);line-height:.95;letter-spacing:.02em;color:#e8edf5 !important;margin-bottom:1.5rem;text-transform:uppercase;}
     .hero-title .line-2{background:var(--orange-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
     .hero-title .line-3{color:rgba(232,237,245,.4) !important;-webkit-text-fill-color:rgba(232,237,245,.4) !important;}
     .hero-desc{color:rgba(232,237,245,.6) !important;font-size:1.05rem;font-weight:300;line-height:1.75;margin-bottom:2.5rem;max-width:460px;}
@@ -589,6 +590,7 @@
 
     /* ── BACK TO TOP ── */
     #btt{position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;background:var(--orange-g);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;text-decoration:none;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;z-index:800;box-shadow:0 6px 22px rgba(245,98,15,.4);}
+    #btt{background:var(--neo-card,#131c2e) !important;color:var(--txt2) !important;}
     #btt.on{opacity:1;transform:translateY(0);}
     #btt:hover{box-shadow:0 10px 32px rgba(245,98,15,.55);transform:translateY(-2px);}
 
@@ -647,8 +649,19 @@
       .steps-grid{grid-template-columns:1fr 1fr;}
       .steps-grid::before{display:none;}
     }
+    @media(max-width:1366px) and (min-width:1101px){
+      nav{gap:1.2rem;}
+      nav a:not(.btn-nav){font-size:.84rem;}
+      .nav-login{display:none;}
+    }
+    /* En dessous de 1100 px : liens de navigation dans le menu, CTA et téléphone restent visibles */
+    @media(max-width:1100px){
+      nav a:not(.btn-nav):not(.cta-tel){display:none;}
+      .hamburger{display:block;margin-left:1rem;}
+    }
     @media(max-width:900px){
       #btt{display:none;}
+      .hdr-tel,.nav-login{display:none;}
       .hdr-tel{display:none;}
       #hdr-cta{display:none;}
     }
@@ -984,9 +997,9 @@
         <div class="tarif-price"><small style="font-size:1.1rem">dès </small>1€<small style="font-size:1.3rem">/km</small></div>
         <div class="tarif-unit">Moto, scooter, voiture, utilitaire, caravane — roulant ou non</div>
         <ul class="tarif-feats">
-          <li>Moto : 1,00 €/km, jamais plus de 400 €</li>
+          <li>Moto : 1,00&nbsp;€/km, jamais plus de 400&nbsp;€</li>
           <li>Voiture : 1,20 €/km</li>
-          <li>Utilitaire, camionnette, caravane : 1,25 €/km</li>
+          <li>Utilitaire, camionnette, caravane : 1,25&nbsp;€/km</li>
           <li>Non roulant : + 80 €</li>
           <li>Chargement, arrimage et péages inclus</li>
         </ul>
@@ -1465,6 +1478,7 @@
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#why">Nos engagements</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="https://app.secoto-transport.fr/" class="nav-login-foot">Espace client</a></li>
         </ul>
       </div>
       <div class="footer-col">

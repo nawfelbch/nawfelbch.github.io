@@ -138,10 +138,11 @@
           "itemOffered": {
             "@type": "Service",
             "name": "Transport plateau",
-            "description": "Transport sur plateau dédié avec arrimage professionnel : motos, scooters, quads, voitures non roulantes, accidentées, non assurées ou de prestige. Péages inclus. Tarif sur devis."
+            "description": "Transport sur plateau dédié avec arrimage professionnel : motos, scooters, quads, voitures non roulantes, accidentées ou non assurées. Péages inclus. Voiture 1,20 €/km, moto 1,00 €/km plafonnée à 400 €, utilitaire et caravane 1,25 €/km, véhicule non roulant +80 €, minimum 115 €."
           },
+          "price": "1.00",
           "priceCurrency": "EUR",
-          "description": "Sur devis"
+          "unitText": "km"
         },
         {
           "@type": "Offer",
@@ -178,7 +179,7 @@
         "name": "Quels sont vos tarifs ?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Le convoyage par chauffeur est facturé 1,00€/km jusqu'à 300 km, puis 0,90€/km au-delà, carburant et péages inclus. Tous les autres transports, notamment le transport sur plateau, sont établis sur devis personnalisé selon le véhicule, le trajet et les conditions d'accès. Réponse sous 2h."
+          "text": "Convoyage par chauffeur : 1,00 €/km, carburant et péages inclus. Transport sur plateau : voiture 1,20 €/km, moto 1,00 €/km plafonnée à 400 €, utilitaire, camionnette et caravane 1,25 €/km, supplément de 80 € pour un véhicule non roulant. Minimum 115 € dans les deux cas. Le simulateur du site affiche votre prix immédiatement, sans inscription."
         }
       },
       {
@@ -944,7 +945,7 @@
       <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">01</span><span class="why-ico" aria-hidden="true">⚡</span><h3>Rapidité</h3><p>Prise en charge sous 24h partout en France. Planification flexible pour vos transports urgents, même en dernière minute. Réponse garantie sous 2h.</p></div>
       <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">02</span><span class="why-ico" aria-hidden="true">🛡️</span><h3>Fiabilité</h3><p>Convoyeurs et transporteurs partenaires sélectionnés et vérifiés, état des lieux photo systématique au départ et à l'arrivée. Zéro mauvaise surprise à la livraison.</p></div>
       <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">03</span><span class="why-ico" aria-hidden="true">📅</span><h3>Disponibilité</h3><p>7 jours sur 7, nous nous adaptons à votre calendrier avec un suivi en temps réel de chaque mission de transport.</p></div>
-      <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">04</span><span class="why-ico" aria-hidden="true">💶</span><h3>Transparence</h3><p>Devis gratuit et immédiat, à partir d'1 €/km en convoyage. Péages inclus, aucun frais caché. Vous validez le prix avant toute intervention.</p></div>
+      <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">04</span><span class="why-ico" aria-hidden="true">💶</span><h3>Transparence</h3><p>Prix immédiat en ligne, sans inscription, à partir d'1 €/km en convoyage. Péages inclus, aucun frais caché. Vous validez le prix avant toute intervention.</p></div>
     </div>
     <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
   </section>
@@ -955,14 +956,14 @@
     <div class="s-head c reveal">
       <div class="stag">Tarification</div>
       <h2 id="tarifs-title" class="s-title">Des prix <span class="acc">clairs</span></h2>
-      <p class="s-desc">Le convoyage suit une grille kilométrique fixe. Tous les autres transports sont établis sur devis, au plus juste selon le véhicule et le trajet. Dans tous les cas, vous connaissez le prix avant de valider. Réponse sous 2h.</p>
+      <p class="s-desc">Un barème au kilomètre, identique pour tous, minimum 115 €. Le simulateur l'applique à votre trajet : vous connaissez le prix avant de créer un compte, et avant de payer.</p>
     </div>
     <div class="tarifs-grid">
       <div class="tarif-card reveal">
         <span class="tarif-ico" aria-hidden="true">🚗</span>
         <h3>Convoyage Auto</h3>
         <div class="tarif-price">1€<small style="font-size:1.3rem">/km</small></div>
-        <div class="tarif-unit">jusqu'à 300 km — véhicule roulant</div>
+        <div class="tarif-unit">toutes distances — véhicule roulant</div>
         <ul class="tarif-feats">
           <li>Convoyeur professionnel dédié</li>
           <li>Prise en charge sur site</li>
@@ -971,24 +972,24 @@
           <li>Bon de livraison signé</li>
         </ul>
         <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(245,98,15,.08);border:1px solid rgba(245,98,15,.2);border-radius:6px;font-size:.84rem;color:rgba(232,237,245,.55);text-align:center;">
-          <strong style="color:#f5620f">0,90€/km</strong> au-delà de 300 km
+          Toutes catégories · minimum <strong style="color:#f5620f">115 €</strong>
         </div>
       </div>
       <div class="tarif-card feat reveal">
         <div class="feat-badge">LE PLUS DEMANDÉ</div>
         <span class="tarif-ico" aria-hidden="true">🏍️</span>
         <h3>Transport Plateau</h3>
-        <div class="tarif-price">Sur devis</div>
-        <div class="tarif-unit">Moto, scooter, quad, véhicule non roulant</div>
+        <div class="tarif-price"><small style="font-size:1.1rem">dès </small>1€<small style="font-size:1.3rem">/km</small></div>
+        <div class="tarif-unit">Moto, scooter, voiture, utilitaire, caravane — roulant ou non</div>
         <ul class="tarif-feats">
-          <li>Chargement &amp; arrimage professionnel</li>
-          <li>Plateau dédié</li>
-          <li>Véhicules non roulants acceptés</li>
-          <li>Péages inclus</li>
-          <li>Bon de livraison signé</li>
+          <li>Moto : 1,00 €/km, jamais plus de 400 €</li>
+          <li>Voiture : 1,20 €/km</li>
+          <li>Utilitaire, camionnette, caravane : 1,25 €/km</li>
+          <li>Non roulant : + 80 €</li>
+          <li>Chargement, arrimage et péages inclus</li>
         </ul>
         <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(245,98,15,.08);border:1px solid rgba(245,98,15,.2);border-radius:6px;font-size:.84rem;color:rgba(232,237,245,.55);text-align:center;">
-          Prix ferme communiqué <strong style="color:#f5620f">sous 2h</strong> après votre demande
+          Minimum <strong style="color:#f5620f">115 €</strong> · prix affiché immédiatement
         </div>
       </div>
       <div class="tarif-card reveal">
@@ -1282,9 +1283,12 @@
         </div>
         <div style="margin-top:2rem;padding:1.5rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
           <div style="font-family:'Bebas Neue','Arial Narrow',Arial,sans-serif;font-size:1rem;color:#e8edf5;margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.06em;">Rappel tarifs</div>
-          <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;color:rgba(232,237,245,.55)"><span>Convoyage ≤ 300 km</span><strong style="color:#f5620f">1,00 €/km</strong></div>
-          <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;color:rgba(232,237,245,.55)"><span>Convoyage &gt; 300 km</span><strong style="color:#f5620f">0,90 €/km</strong></div>
-          <div style="display:flex;justify-content:space-between;padding:.5rem 0;font-size:.88rem;color:rgba(232,237,245,.55)"><span>Transport plateau</span><strong style="color:#f5620f">Sur devis</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;color:var(--txt2)"><span>Convoyage par chauffeur</span><strong style="color:#f5620f">1,00 €/km</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;color:var(--txt2)"><span>Plateau moto (max. 400 €)</span><strong style="color:#f5620f">1,00 €/km</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;color:var(--txt2)"><span>Plateau voiture</span><strong style="color:#f5620f">1,20 €/km</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;color:var(--txt2)"><span>Plateau utilitaire, caravane</span><strong style="color:#f5620f">1,25 €/km</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;color:var(--txt2)"><span>Non roulant</span><strong style="color:#f5620f">+ 80 €</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:.5rem 0;font-size:.88rem;color:var(--txt2)"><span>Minimum</span><strong style="color:#f5620f">115 €</strong></div>
         </div>
       </div>
 
@@ -1505,7 +1509,7 @@
       </div>
       <div class="legal-modal-body">
         <h4>Éditeur du site</h4>
-        <p>SECOTO — Entreprise Individuelle<br>SIRET 951 857 531 00028 — Code APE 5320Z<br>TVA non applicable, art. 293 B du CGI<br>Siège social : 70 Avenue du Maréchal Foch, 92260 Fontenay-aux-Roses<br>Téléphone : <a href="tel:+33783278231" style="color:#f5620f;">07 83 27 82 31</a><br>Email : contact.secoto@gmail.com</p>
+        <p>SECOTO — Entreprise Individuelle<br>SIRET 951 857 531 00028 — Code APE 8299Z<br>TVA non applicable, art. 293 B du CGI<br>Siège social : 70 Avenue du Maréchal Foch, 92260 Fontenay-aux-Roses<br>Téléphone : <a href="tel:+33783278231" style="color:#f5620f;">07 83 27 82 31</a><br>Email : contact.secoto@gmail.com</p>
         <h4>Activité</h4>
         <p>SECOTO exerce une activité de prestation de mise en relation : l'entreprise coordonne les missions de transport de véhicules entre ses clients et des transporteurs ou convoyeurs partenaires indépendants. SECOTO n'exerce pas elle-même l'activité de transport routier.</p>
         <h4>Directeur de la publication</h4>
@@ -1536,11 +1540,14 @@
         <h4>Article 2 — Tarifs</h4>
         <p>Les tarifs applicables sont les suivants :</p>
         <ul>
-          <li>Convoyage par chauffeur ≤ 300 km : 1,00 € / km</li>
-          <li>Convoyage par chauffeur &gt; 300 km : 0,90 € / km</li>
-          <li>Transport sur plateau et toute autre prestation : sur devis personnalisé</li>
+          <li>Convoyage par chauffeur, toutes catégories : 1,00 € / km</li>
+          <li>Transport sur plateau — voiture : 1,20 € / km</li>
+          <li>Transport sur plateau — moto : 1,00 € / km, prix plafonné à 400 €</li>
+          <li>Transport sur plateau — utilitaire, camionnette, caravane : 1,25 € / km</li>
+          <li>Véhicule non roulant (plateau) : supplément de 80 €</li>
+          <li>Minimum de facturation : 115 € par transport</li>
         </ul>
-        <p>Les péages sont inclus dans les tarifs communiqués. En convoyage, le carburant est également inclus. Toute prestation hors convoyage fait l'objet d'un devis établi selon le véhicule, le trajet et les conditions d'accès. Tout devis accepté par le client vaut bon de commande et engage les deux parties.</p>
+        <p>Les péages sont inclus dans les tarifs communiqués. En convoyage, le carburant est également inclus. Les prestations hors barème (plusieurs véhicules, trajets internationaux, contraintes d'accès particulières) font l'objet d'un devis personnalisé. Tout devis accepté par le client vaut bon de commande et engage les deux parties.</p>
         <h4>Article 3 — Modalités de paiement</h4>
         <p>Le paiement est dû à la livraison du véhicule, sauf accord préalable. Les règlements s'effectuent par virement bancaire ou tout autre moyen convenu.</p>
         <h4>Article 4 — Rôle de SECOTO et responsabilités</h4>

@@ -385,6 +385,19 @@
     .devis-body{grid-template-columns:1fr !important;}
     #devis-form{border-right:none !important;}
 
+    /* ── BARRE D'ACTION MOBILE ── */
+    .mbar{display:none;}
+    @media(max-width:900px){
+      .mbar{display:flex;gap:.6rem;align-items:center;position:fixed;left:0;right:0;bottom:0;z-index:1500;padding:.6rem 4% calc(.6rem + env(safe-area-inset-bottom));background:rgba(7,11,20,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--border);transition:transform .25s ease;}
+      [data-theme="light"] .mbar{background:rgba(240,243,248,.95);}
+      .mbar .btn{flex:1;justify-content:center;min-height:50px;font-size:1.05rem;padding:.8rem .6rem;white-space:nowrap;}
+      .mbar-tel{flex:0 0 50px;height:50px;border-radius:8px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;}
+      .mbar-tel svg{width:22px;height:22px;fill:var(--txt2);}
+      /* Jamais par-dessus le simulateur, un champ en cours de saisie ou une fenêtre ouverte */
+      body.sim-visible .mbar,body.typing .mbar,body.modal-open .mbar{transform:translateY(110%);}
+      body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+    }
+
     /* ── TICKER ── */
     .ticker-outer{background:var(--orange-g);overflow:hidden;padding:.7rem 0;position:relative;}
     .ticker-track{display:flex;white-space:nowrap;}
@@ -1473,6 +1486,15 @@
 
   <a href="#hero" id="btt" aria-label="Retour en haut de page">↑</a>
 
+  <!-- ══════════════════ BARRE D'ACTION MOBILE (zone du pouce) ══════════════════ -->
+
+  <div class="mbar" id="mbar">
+    <a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a>
+    <a href="tel:+33783278231" class="mbar-tel" aria-label="Appeler SECOTO au 07 83 27 82 31">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+    </a>
+  </div>
+
   <!-- ══════════════════ LEGAL MODALS ══════════════════ -->
 
   <div class="legal-overlay" id="modal-mentions" role="dialog" aria-modal="true" aria-labelledby="modal-mentions-title">
@@ -1755,6 +1777,15 @@
       setTimeout(() => target.focus({ preventScroll: true }), 450);
     });
 
+    /* ── Barre mobile : masquée pendant la saisie (clavier ouvert) ── */
+    document.addEventListener('focusin', e => {
+      if (e.target.matches('input:not([type=radio]):not([type=hidden]),select,textarea')) document.body.classList.add('typing');
+    });
+    document.addEventListener('focusout', () => setTimeout(() => {
+      const a = document.activeElement;
+      if (!a || !a.matches('input:not([type=radio]):not([type=hidden]),select,textarea')) document.body.classList.remove('typing');
+    }, 50));
+
     /* ── Le bouton de l'en-tête n'apparaît que lorsque le simulateur est hors de l'écran ── */
     const simEl = document.getElementById('simulateur');
     if (simEl && 'IntersectionObserver' in window) {
@@ -1906,21 +1937,24 @@
     window.openLegal = function(type) {
       const modal = document.getElementById('modal-' + type);
       modal.classList.add('on');
+      document.body.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
       modal.querySelector('.legal-close').focus();
     };
     window.closeLegal = function(type) {
       document.getElementById('modal-' + type).classList.remove('on');
+      document.body.classList.remove('modal-open');
       document.body.style.overflow = '';
     };
     document.querySelectorAll('.legal-overlay').forEach(overlay => {
       overlay.addEventListener('click', function(e) {
-        if (e.target === this) { this.classList.remove('on'); document.body.style.overflow = ''; }
+        if (e.target === this) { this.classList.remove('on'); document.body.classList.remove('modal-open'); document.body.style.overflow = ''; }
       });
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.legal-overlay.on').forEach(m => m.classList.remove('on'));
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
       }
     });

@@ -368,6 +368,23 @@
     .sim-call a{color:var(--txt2);font-weight:600;text-decoration:underline;text-underline-offset:3px;}
     .sim-call a:hover{color:#f5620f;}
 
+    /* ── CTA ── */
+    .sec-cta{display:flex;justify-content:center;margin-top:3rem;}
+    .sec-cta .btn{font-size:1.1rem;padding:1rem 2.2rem;}
+    .cta-tel{color:var(--txt2) !important;font-size:.88rem;font-weight:600;text-decoration:none;border-bottom:1px dashed var(--border2);white-space:nowrap;}
+    .cta-tel:hover{color:#f5620f !important;}
+    nav a.cta-tel::after{display:none;}
+    #hdr-cta{transition:opacity .25s,transform .25s;}
+    body.sim-visible #hdr-cta{opacity:0;pointer-events:none;transform:translateY(-6px);}
+    .devis-details{max-width:1200px;margin:0 auto;}
+    .devis-details > summary{list-style:none;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:.6rem;padding:1rem 1.4rem;margin:0 auto 1.5rem;width:fit-content;border-radius:6px;border:1.5px solid var(--border2);color:var(--txt2);font-weight:600;font-size:.95rem;}
+    .devis-details > summary::-webkit-details-marker{display:none;}
+    .devis-details > summary::after{content:'▾';transition:transform .2s;}
+    .devis-details[open] > summary::after{transform:rotate(180deg);}
+    .devis-details > summary:hover{color:#f5620f;border-color:#f5620f;}
+    .devis-body{grid-template-columns:1fr !important;}
+    #devis-form{border-right:none !important;}
+
     /* ── TICKER ── */
     .ticker-outer{background:var(--orange-g);overflow:hidden;padding:.7rem 0;position:relative;}
     .ticker-track{display:flex;white-space:nowrap;}
@@ -556,16 +573,9 @@
     .footer-bottom a{color:#f5620f;text-decoration:none;}
 
     /* ── BACK TO TOP ── */
-    #btt{position:fixed;bottom:6rem;right:2rem;width:48px;height:48px;background:var(--orange-g);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;text-decoration:none;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;z-index:800;box-shadow:0 6px 22px rgba(245,98,15,.4);}
+    #btt{position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;background:var(--orange-g);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;text-decoration:none;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;z-index:800;box-shadow:0 6px 22px rgba(245,98,15,.4);}
     #btt.on{opacity:1;transform:translateY(0);}
     #btt:hover{box-shadow:0 10px 32px rgba(245,98,15,.55);transform:translateY(-2px);}
-
-    /* ── WHATSAPP ── */
-    #wa-btn{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.45);z-index:999;text-decoration:none;transition:transform .2s,box-shadow .2s;}
-    #wa-btn:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,.6);}
-    #wa-btn svg{width:30px;height:30px;fill:#fff;}
-    #wa-tooltip{position:fixed;bottom:100px;right:28px;background:#101828;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:.7rem 1rem;font-size:.82rem;color:#e8edf5;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .2s;}
-    #wa-btn:hover + #wa-tooltip,#wa-tooltip:hover{opacity:1;pointer-events:all;}
 
     /* ── LEGAL MODALS ── */
     .legal-overlay{position:fixed;inset:0;background:rgba(7,11,20,.88);backdrop-filter:blur(10px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .25s;}
@@ -621,6 +631,11 @@
     @media(max-width:800px){
       .steps-grid{grid-template-columns:1fr 1fr;}
       .steps-grid::before{display:none;}
+    }
+    @media(max-width:900px){
+      #btt{display:none;}
+      .hdr-tel{display:none;}
+      #hdr-cta{display:none;}
     }
     @media(max-width:640px){
       nav a:not(.btn-nav):not(.btn-nav){display:none;}
@@ -720,15 +735,16 @@
     </a>
     <nav id="nav" role="navigation" aria-label="Navigation principale">
       <a href="#services">Services</a>
+      <a href="#tarifs">Tarifs</a>
       <a href="#comment">Comment ça marche</a>
       <a href="#faq">FAQ</a>
-      <a href="#tarifs">Tarifs</a>
-      <a href="#devis">Devis</a>
+      <a href="#contact">Contact</a>
       <button class="theme-toggle" id="themeBtn" aria-label="Changer de thème">
         <span class="t-dark" aria-hidden="true">🌙</span>
         <span class="t-light" aria-hidden="true">☀️</span>
       </button>
-      <a href="#devis" class="btn-nav">Devis gratuit</a>
+      <a href="tel:+33783278231" class="cta-tel hdr-tel" aria-label="Appeler SECOTO au 07 83 27 82 31">07 83 27 82 31</a>
+      <a href="#simulateur" class="btn-nav js-main-cta" id="hdr-cta">Voir mon prix en 30 secondes</a>
     </nav>
     <button class="hamburger" id="hbg" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
       <span></span><span></span><span></span>
@@ -900,6 +916,7 @@
         </div>
       </article>
     </div>
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
   </section>
 
   <!-- ══════════════════ WHY ══════════════════ -->
@@ -916,6 +933,7 @@
       <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">03</span><span class="why-ico" aria-hidden="true">📅</span><h3>Disponibilité</h3><p>7 jours sur 7, nous nous adaptons à votre calendrier avec un suivi en temps réel de chaque mission de transport.</p></div>
       <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">04</span><span class="why-ico" aria-hidden="true">💶</span><h3>Transparence</h3><p>Devis gratuit et immédiat, à partir d'1 €/km en convoyage. Péages inclus, aucun frais caché. Vous validez le prix avant toute intervention.</p></div>
     </div>
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
   </section>
 
   <!-- ══════════════════ TARIFS ══════════════════ -->
@@ -942,7 +960,6 @@
         <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(245,98,15,.08);border:1px solid rgba(245,98,15,.2);border-radius:6px;font-size:.84rem;color:rgba(232,237,245,.55);text-align:center;">
           <strong style="color:#f5620f">0,90€/km</strong> au-delà de 300 km
         </div>
-        <a href="#devis" class="btn btn-ghost" style="width:100%;justify-content:center">Estimer mon trajet</a>
       </div>
       <div class="tarif-card feat reveal">
         <div class="feat-badge">LE PLUS DEMANDÉ</div>
@@ -960,7 +977,6 @@
         <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(245,98,15,.08);border:1px solid rgba(245,98,15,.2);border-radius:6px;font-size:.84rem;color:rgba(232,237,245,.55);text-align:center;">
           Prix ferme communiqué <strong style="color:#f5620f">sous 2h</strong> après votre demande
         </div>
-        <a href="#devis" class="btn" style="width:100%;justify-content:center">Demander un devis</a>
       </div>
       <div class="tarif-card reveal">
         <span class="tarif-ico" aria-hidden="true">🏢</span>
@@ -977,9 +993,9 @@
         <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(245,98,15,.08);border:1px solid rgba(245,98,15,.2);border-radius:6px;font-size:.84rem;color:rgba(232,237,245,.55);text-align:center;">
           Garages, concessions, loueurs — tarif négocié
         </div>
-        <a href="#devis" class="btn btn-ghost" style="width:100%;justify-content:center">Nous contacter</a>
       </div>
     </div>
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
   </section>
 
   <!-- ══════════════════ TESTIMONIALS ══════════════════ -->
@@ -1043,6 +1059,7 @@
       </div>
       <p class="testi-hint">← Swipe pour voir plus d'avis →</p>
     </div>
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
 
   </section>
 
@@ -1050,12 +1067,14 @@
 
   <section id="devis" aria-labelledby="devis-title">
     <div class="s-head c reveal">
-      <div class="stag">Devis gratuit</div>
-      <h2 id="devis-title" class="s-title">Estimez votre <span class="acc">transport</span></h2>
-      <p class="s-desc">Choisissez le mode de transport, renseignez les informations et obtenez une estimation instantanée.</p>
+      <div class="stag">Demande sur mesure</div>
+      <h2 id="devis-title" class="s-title">Plusieurs véhicules, Europe, <span class="acc">entreprise</span> ?</h2>
+      <p class="s-desc">Pour un trajet seul en France, le simulateur vous donne le prix tout de suite. Pour un besoin hors simulateur, décrivez-le ici : réponse personnalisée.</p>
     </div>
 
-    <div class="devis-shell reveal">
+    <details class="devis-details reveal">
+      <summary>Décrire mon besoin sur mesure</summary>
+    <div class="devis-shell">
       <div class="svc-toggle-wrap" role="tablist" aria-label="Type de service">
         <button class="svc-btn active" id="btn-auto" role="tab" aria-selected="true" aria-controls="block-auto" onclick="switchService('auto')">
           <span class="svc-ico" aria-hidden="true">🚗</span>
@@ -1198,55 +1217,17 @@
             </div>
           </div>
 
-          <button type="submit" class="btn" style="width:100%;justify-content:center;padding:1.1rem;font-size:1.05rem;margin-top:.5rem">
-            Envoyer ma demande de devis →
+          <button type="submit" class="btn btn-ghost" style="width:100%;justify-content:center;padding:1.1rem;font-size:1.05rem;margin-top:.5rem">
+            Recevoir mon devis sur mesure →
           </button>
           <div class="form-success" id="fs" role="alert">✓ Demande envoyée ! Nous vous recontactons sous 2h.</div>
         </form>
 
-        <aside class="estimator-panel" aria-label="Estimateur de prix">
-          <div>
-            <div class="est-title">Estimation tarifaire</div>
-            <div class="est-badge" id="est-service-badge" aria-live="polite">🚗 Convoyage Auto</div>
-          </div>
-
-          <div class="est-price-block">
-            <div class="est-price-label">Estimation</div>
-            <div class="est-price-num" id="est-price" aria-live="polite">—</div>
-            <div class="est-price-sub" id="est-price-sub">Renseignez la distance pour une estimation</div>
-          </div>
-
-          <div class="est-rules">
-            <div class="est-rule" id="rule-auto">
-              <div class="est-rule-title">📐 Grille tarifaire — Convoyage auto</div>
-              <div class="est-rule-row"><span>≤ 300 km</span><strong>1,00 € / km</strong></div>
-              <div class="est-rule-row"><span>&gt; 300 km</span><strong>0,90 € / km</strong></div>
-              <div class="est-rule-note">Convoyeur dédié · Carburant et péages inclus</div>
-            </div>
-            <div class="est-rule" id="rule-moto" style="display:none">
-              <div class="est-rule-title">📐 Tarification — Transport plateau</div>
-              <div class="est-rule-row"><span>Tarif de base</span><strong>Sur devis</strong></div>
-              <div class="est-rule-row"><span>Plusieurs véhicules</span><strong>Tarif dégressif</strong></div>
-              <div class="est-rule-note">Prix établi selon le véhicule, le trajet et les conditions d'accès · Réponse sous 2h</div>
-            </div>
-          </div>
-
-          <div>
-            <div class="est-inc-title">✓ Inclus dans chaque prestation</div>
-            <div class="est-inc-list" id="est-inc-list">
-              <span>État des lieux photo</span>
-              <span>Carburant &amp; péages</span>
-              <span>Bon de livraison</span>
-              <span>Suivi en temps réel</span>
-            </div>
-          </div>
-
-          <div class="est-disclaimer">
-            Estimation indicative. Le devis définitif est établi après étude de votre demande. Réponse sous 2h.
-          </div>
-        </aside>
       </div>
     </div>
+    </details>
+
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
 
   </section>
 
@@ -1315,12 +1296,13 @@
             <textarea id="c-message" name="message" placeholder="Votre question…" style="min-height:140px"></textarea>
           </div>
           <div class="field full">
-            <button type="submit" class="btn" style="width:100%;justify-content:center;padding:1rem;font-size:1.05rem">Envoyer →</button>
+            <button type="submit" class="btn btn-ghost" style="width:100%;justify-content:center;padding:1rem;font-size:1.05rem">Poser ma question →</button>
           </div>
         </div>
         <div class="form-success" id="fc" role="alert">✓ Message envoyé ! Nous vous répondons sous 2h.</div>
       </form>
     </div>
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
 
   </section>
 
@@ -1358,6 +1340,7 @@
         <p class="step-desc">Le destinataire signe le bon de livraison. Mission accomplie — votre véhicule est arrivé.</p>
       </div>
     </div>
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
   </section>
 
   <!-- ══════════════════ FAQ ══════════════════ -->
@@ -1432,6 +1415,7 @@
         <div class="faq-a">Berlines, SUV, citadines, breaks, cabriolets, utilitaires légers, motos et scooters de toutes cylindrées, quads. Les véhicules de collection, de prestige ou non assurés sont pris en charge sur plateau avec un traitement dédié.</div>
       </div>
     </div>
+    <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
   </section>
 
   <!-- ══════════════════ FOOTER ══════════════════ -->
@@ -1444,7 +1428,7 @@
                style="height:42px;width:auto;object-fit:contain;filter:brightness(0) invert(1);" />
         </a>
         <p>Transport de véhicules en France et en Europe : convoyage par chauffeur, plateau moto et scooter, véhicules non roulants et de prestige. Suivi en temps réel, devis gratuit sous 2h.</p>
-        <a href="#devis" class="btn" style="font-size:.85rem;padding:.6rem 1.3rem">Demander un devis</a>
+        <a href="#simulateur" class="btn js-main-cta" style="font-size:.85rem;padding:.6rem 1.3rem">Voir mon prix en 30 secondes</a>
       </div>
       <div class="footer-col">
         <h4>Services</h4>
@@ -1484,13 +1468,6 @@
       </p>
     </div>
   </footer>
-
-  <!-- ══════════════════ WHATSAPP ══════════════════ -->
-
-  <a id="wa-btn" href="https://wa.me/33783278231?text=Bonjour%20SECOTO%2C%20je%20souhaite%20obtenir%20un%20devis%20pour%20un%20transport%20de%20v%C3%A9hicule." target="_blank" rel="noopener noreferrer" aria-label="Contacter SECOTO via WhatsApp">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.531 5.856L.06 23.48l5.77-1.513A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.714.974.99-3.622-.234-.373A9.818 9.818 0 012.18 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
-  </a>
-  <div id="wa-tooltip" role="tooltip">💬 Discuter sur WhatsApp</div>
 
   <!-- ══════════════════ BACK TO TOP ══════════════════ -->
 
@@ -1755,10 +1732,36 @@
   (() => {
     'use strict';
 
-    // URL de l'app web où les clients déposent leur annonce
-    const APP_URL = 'https://app.secoto-transport.fr';
-    // Tous les boutons "Devis" mènent directement à l'app
-    document.querySelectorAll('a[href="#devis"]').forEach(a => a.setAttribute('href', APP_URL));
+    /* ── CTA principal unique : « Voir mon prix en 30 secondes » ──
+       Avant le prix : ramène au simulateur et place le curseur dans le premier champ vide.
+       Après le prix : devient « Réserver à X € » partout (même libellé, même couleur). */
+    const MAIN_LABEL = 'Voir mon prix en 30 secondes';
+    let booking = null;
+    const mainCtas = () => document.querySelectorAll('.js-main-cta');
+    window.addEventListener('secoto:price', e => {
+      booking = e.detail || null;
+      mainCtas().forEach(a => {
+        a.textContent = booking ? booking.label : MAIN_LABEL;
+        a.setAttribute('href', booking ? booking.url : '#simulateur');
+      });
+    });
+    document.addEventListener('click', e => {
+      const a = e.target.closest && e.target.closest('.js-main-cta');
+      if (!a || booking) return;
+      e.preventDefault();
+      const from = document.getElementById('sim-from'), to = document.getElementById('sim-to');
+      const target = !from.value.trim() ? from : (!to.value.trim() ? to : document.getElementById('sim-go'));
+      document.getElementById('simulateur').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => target.focus({ preventScroll: true }), 450);
+    });
+
+    /* ── Le bouton de l'en-tête n'apparaît que lorsque le simulateur est hors de l'écran ── */
+    const simEl = document.getElementById('simulateur');
+    if (simEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => {
+        document.body.classList.toggle('sim-visible', en.isIntersecting);
+      }, { threshold: 0.15 }).observe(simEl);
+    }
 
     /* ── Année dynamique ── */
     const yearEl = document.getElementById('year');
@@ -1926,45 +1929,19 @@
     let currentService = 'auto';
     window.switchService = function(svc) {
       currentService = svc;
+      const show = (id, on) => { const el = document.getElementById(id); if (el) el.style.display = on ? '' : 'none'; };
       ['auto','moto'].forEach(s => {
         const btn = document.getElementById('btn-' + s);
         btn.classList.toggle('active', s === svc);
         btn.setAttribute('aria-selected', String(s === svc));
       });
-      document.getElementById('block-auto').style.display = svc === 'auto' ? '' : 'none';
-      document.getElementById('block-moto').style.display = svc === 'moto' ? '' : 'none';
-      document.getElementById('rule-auto').style.display  = svc === 'auto' ? '' : 'none';
-      document.getElementById('rule-moto').style.display  = svc === 'moto' ? '' : 'none';
-      document.getElementById('est-service-badge').textContent = svc === 'auto' ? '🚗 Convoyage Auto' : '🛻 Transport Plateau';
-      document.getElementById('est-inc-list').innerHTML = svc === 'auto'
-        ? '<span>État des lieux photo</span><span>Carburant &amp; péages</span><span>Bon de livraison</span><span>Suivi en temps réel</span>'
-        : '<span>Chargement &amp; arrimage</span><span>Péages inclus</span><span>Bon de livraison</span><span>Non roulant accepté</span>';
-      estimatePrice();
+      show('block-auto', svc === 'auto');
+      show('block-moto', svc === 'moto');
     };
 
-    /* ── Devis — price estimator ── */
-    window.estimatePrice = function() {
-      const km = parseFloat(document.getElementById('f-km').value);
-      const priceEl = document.getElementById('est-price');
-      const subEl   = document.getElementById('est-price-sub');
-
-      if (!km || km < 1) {
-        priceEl.textContent = '—';
-        subEl.textContent   = 'Renseignez la distance pour une estimation';
-        return;
-      }
-
-      if (currentService === 'moto') {
-        priceEl.textContent = 'Sur devis';
-        subEl.textContent   = 'Prix établi selon le véhicule, le trajet et les conditions d\'accès. Réponse sous 2h.';
-        return;
-      }
-
-      const rate  = km <= 300 ? 1.00 : 0.90;
-      const label = km <= 300 ? '1,00 €/km (≤ 300 km)' : '0,90 €/km (> 300 km)';
-      priceEl.textContent = `≈ ${Math.round(km * rate).toLocaleString('fr-FR')} €`;
-      subEl.textContent   = `${km} km × ${label} · carburant et péages inclus`;
-    };
+    /* ── Ancien estimateur (grille obsolète) retiré : le simulateur du haut de page le remplace.
+       La fonction reste définie car les champs du formulaire l'appellent (oninput). */
+    window.estimatePrice = function() {};
 
     /* ── Devis form submit → Supabase ── */
     // Identifiants Supabase (la clé anon est publique, prévue pour le navigateur)
@@ -2046,7 +2023,7 @@
       })
       .catch(() => {
         alert('Une erreur est survenue. Appelez-nous au 07 83 27 82 31 ou réessayez.');
-        if (btn) { btn.disabled = false; btn.textContent = 'Envoyer ma demande de devis →'; }
+        if (btn) { btn.disabled = false; btn.textContent = 'Recevoir mon devis sur mesure →'; }
       });
     };
 

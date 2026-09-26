@@ -195,7 +195,7 @@
         "name": "Quel est le délai de prise en charge ?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nous répondons à toute demande de devis sous 2h. La mission peut être planifiée dès le lendemain selon disponibilité."
+          "text": "Le prix s'affiche immédiatement sur le site. Une fois la réservation payée, la demande part aux transporteurs vérifiés compatibles, qui ont jusqu'à 48 h pour l'accepter ; sinon, remboursement intégral sous 24 h. Pour une urgence, appelez le 07 83 27 82 31."
         }
       }
     ]
@@ -370,6 +370,7 @@
     .sim-call a:hover{color:#f5620f;}
 
     /* ── CTA ── */
+    nav a.nav-login{color:var(--txt2) !important;}
     .sec-cta{display:flex;justify-content:center;margin-top:3rem;}
     .sec-cta .btn{font-size:1.1rem;padding:1rem 2.2rem;}
     .cta-tel{color:var(--txt2) !important;font-size:.88rem;font-weight:600;text-decoration:none;border-bottom:1px dashed var(--border2);white-space:nowrap;}
@@ -753,6 +754,7 @@
       <a href="#comment">Comment ça marche</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
+      <a href="https://app.secoto-transport.fr/" class="nav-login">Espace client</a>
       <button class="theme-toggle" id="themeBtn" aria-label="Changer de thème">
         <span class="t-dark" aria-hidden="true">🌙</span>
         <span class="t-light" aria-hidden="true">☀️</span>
@@ -942,9 +944,9 @@
       <p class="s-desc">Un seul interlocuteur pour tous vos transports de véhicules. Même niveau d'exigence quel que soit le véhicule, le mode de transport ou la distance.</p>
     </div>
     <div class="why-grid">
-      <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">01</span><span class="why-ico" aria-hidden="true">⚡</span><h3>Rapidité</h3><p>Prise en charge sous 24h partout en France. Planification flexible pour vos transports urgents, même en dernière minute. Réponse garantie sous 2h.</p></div>
+      <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">01</span><span class="why-ico" aria-hidden="true">⚡</span><h3>Rapidité</h3><p>Votre prix s'affiche en 30 secondes. Dès la réservation, la demande part aux transporteurs vérifiés compatibles avec votre véhicule. Urgent ? Appelez-nous, 7j/7.</p></div>
       <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">02</span><span class="why-ico" aria-hidden="true">🛡️</span><h3>Fiabilité</h3><p>Convoyeurs et transporteurs partenaires sélectionnés et vérifiés, état des lieux photo systématique au départ et à l'arrivée. Zéro mauvaise surprise à la livraison.</p></div>
-      <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">03</span><span class="why-ico" aria-hidden="true">📅</span><h3>Disponibilité</h3><p>7 jours sur 7, nous nous adaptons à votre calendrier avec un suivi en temps réel de chaque mission de transport.</p></div>
+      <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">03</span><span class="why-ico" aria-hidden="true">📅</span><h3>Disponibilité</h3><p>7 jours sur 7, nous nous adaptons à votre calendrier. Chaque mission se suit dans l'application, de la prise en charge à la livraison.</p></div>
       <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">04</span><span class="why-ico" aria-hidden="true">💶</span><h3>Transparence</h3><p>Prix immédiat en ligne, sans inscription, à partir d'1 €/km en convoyage. Péages inclus, aucun frais caché. Vous validez le prix avant toute intervention.</p></div>
     </div>
     <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
@@ -1278,7 +1280,7 @@
           <div class="cinfo-ico" aria-hidden="true">🕐</div>
           <div>
             <div class="cinfo-label">Disponibilité</div>
-            <div class="cinfo-val">7j/7 · Réponse sous 2h</div>
+            <div class="cinfo-val">7j/7 · par téléphone de préférence</div>
           </div>
         </div>
         <div style="margin-top:2rem;padding:1.5rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
@@ -1329,20 +1331,20 @@
     <div class="s-head c reveal">
       <div class="stag">Processus</div>
       <h2 id="comment-title" class="s-title">Comment ça <span class="acc">marche ?</span></h2>
-      <p class="s-desc" style="margin:0 auto">De la demande à la livraison, tout est pensé pour que votre véhicule arrive à destination en toute sérénité.</p>
+      <p class="s-desc" style="margin:0 auto">Du prix à la livraison, en quatre étapes. SECOTO organise la mission et la confie à un transporteur partenaire vérifié (prestation de mise en relation).</p>
     </div>
     <div class="steps-grid">
       <div class="step-card reveal">
         <div class="step-num" aria-hidden="true">1</div>
         <div class="step-icon" aria-hidden="true">📋</div>
-        <h3 class="step-title">Demande de devis</h3>
-        <p class="step-desc">Vous indiquez le véhicule, le trajet et s'il roule ou non. Devis personnalisé sous 2h, 7j/7.</p>
+        <h3 class="step-title">Votre prix</h3>
+        <p class="step-desc">Départ, arrivée, type de véhicule, roulant ou non : le prix s'affiche tout de suite, sans inscription.</p>
       </div>
       <div class="step-card reveal">
         <div class="step-num" aria-hidden="true">2</div>
         <div class="step-icon" aria-hidden="true">🤝</div>
-        <h3 class="step-title">Confirmation</h3>
-        <p class="step-desc">Vous validez le devis et la date. Nous affectons le convoyeur ou le plateau adapté au véhicule.</p>
+        <h3 class="step-title">Réservation</h3>
+        <p class="step-desc">Vous créez votre compte et payez dans l'application. Le paiement reste en réserve le temps qu'un transporteur vérifié accepte ; sinon, remboursement intégral.</p>
       </div>
       <div class="step-card reveal">
         <div class="step-num" aria-hidden="true">3</div>
@@ -1380,7 +1382,7 @@
           Mon véhicule ne roule pas. Pouvez-vous quand même le transporter ?
           <div class="faq-arrow" aria-hidden="true">▾</div>
         </div>
-        <div class="faq-a">Oui. Véhicule en panne, accidenté, sans batterie, sans contrôle technique ou non assuré : le transport se fait sur plateau. Précisez simplement à la demande de devis si le véhicule roule, s'il se déplace au treuil ou s'il est totalement bloqué, ainsi que les conditions d'accès (parking souterrain, garage, box).</div>
+        <div class="faq-a">Oui. Véhicule en panne, accidenté, sans batterie, sans contrôle technique ou non assuré : le transport se fait sur plateau. Indiquez simplement « non roulant » dans le simulateur ; précisez ensuite dans l'application si le véhicule roule, s'il se déplace au treuil ou s'il est totalement bloqué, ainsi que les conditions d'accès (parking souterrain, garage, box).</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
@@ -1408,7 +1410,7 @@
           Quel est le délai de prise en charge ?
           <div class="faq-arrow" aria-hidden="true">▾</div>
         </div>
-        <div class="faq-a">Nous répondons à toute demande de devis sous 2h. La mission peut être planifiée dès le lendemain selon disponibilité. Pour les demandes urgentes, contactez-nous directement par téléphone ou WhatsApp.</div>
+        <div class="faq-a">Le prix s'affiche immédiatement sur ce site. Une fois la réservation payée, la demande part aux transporteurs vérifiés compatibles, qui ont jusqu'à 48 h pour l'accepter. Si aucun ne se rend disponible, vous êtes remboursé intégralement sous 24 h. Pour une demande urgente, appelez-nous au <a href="tel:+33783278231" style="color:#f5620f">07 83 27 82 31</a>.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
@@ -1444,7 +1446,7 @@
           <img src="https://nawfelbch.github.io/logo.png" alt="SECOTO" width="42" height="42"
                style="height:42px;width:auto;object-fit:contain;filter:brightness(0) invert(1);" />
         </a>
-        <p>Transport de véhicules en France et en Europe : convoyage par chauffeur, plateau moto et scooter, véhicules non roulants et de prestige. Suivi en temps réel, devis gratuit sous 2h.</p>
+        <p>Transport de véhicules en France et en Europe : convoyage par chauffeur, plateau moto et scooter, véhicules non roulants et de prestige. Prix immédiat en ligne, sans inscription. Prestation de mise en relation avec des transporteurs partenaires vérifiés.</p>
         <a href="#simulateur" class="btn js-main-cta" style="font-size:.85rem;padding:.6rem 1.3rem">Voir mon prix en 30 secondes</a>
       </div>
       <div class="footer-col">
@@ -1599,7 +1601,7 @@
     'use strict';
 
     // Barème client SECOTO du 18/09/2026 (plateau voiture 1,20 depuis le 20/09/2026).
-    // Seul le prix client figure ici : aucune rémunération transporteur, aucune marge.
+    // Seul le prix client figure ici.
     const BAREME = {
       plancher: 115,
       nonRoulant: 80,

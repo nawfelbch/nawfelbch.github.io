@@ -357,6 +357,8 @@
     .sim-seg span{display:flex;align-items:center;justify-content:center;min-height:44px;padding:.4rem .3rem;border-radius:8px;border:1.5px solid var(--border2);color:var(--txt2);font-size:.86rem;font-weight:500;text-align:center;transition:border-color .15s,background .15s,color .15s;}
     .sim-seg input:checked + span{border-color:#f5620f;background:rgba(245,98,15,.12);color:var(--txt);font-weight:600;}
     .sim-seg input:focus-visible + span{box-shadow:0 0 0 3px rgba(245,98,15,.35);}
+    .sim-seg input:disabled + span{opacity:.4;cursor:not-allowed;}
+    .sim-hint{grid-column:1/-1;margin:.4rem 0 0;font-size:.76rem;line-height:1.4;color:var(--txt3);}
     .sim .btn{width:100%;justify-content:center;padding:1rem 1rem;font-size:1.15rem;min-height:52px;}
     .sim-result{display:flex;flex-direction:column;gap:.55rem;text-align:center;}
     .sim [hidden]{display:none !important;}
@@ -826,6 +828,13 @@
             </div>
           </div>
           <datalist id="sim-cities"></datalist>
+
+          <fieldset class="sim-seg">
+            <legend>Prestation</legend>
+            <label><input type="radio" name="sim-mode" value="convoyage" checked /><span>Convoyage</span></label>
+            <label><input type="radio" name="sim-mode" value="plateau" /><span>Plateau</span></label>
+            <p class="sim-hint" id="sim-mode-hint" hidden></p>
+          </fieldset>
 
           <fieldset class="sim-seg sim-seg-4">
             <legend>Véhicule</legend>
@@ -1617,11 +1626,12 @@
     // Barème client SECOTO du 18/09/2026 (plateau voiture 1,20 depuis le 20/09/2026).
     // Seul le prix client figure ici.
     const BAREME = {
-      plancher: 115,
+      plancherConvoyage: 60,
+      plancherPlateau: 115,
       nonRoulant: 80,
       convoyage: 1.00,
       plateau: { voiture: 1.20, moto: 1.00, utilitaire: 1.25, caravane: 1.25 },
-      plafondMoto: 400
+      plafondMoto: 382
     };
     const DETOUR = 1.20; // distance à vol d'oiseau majorée de 20 %
     const APP_URL = 'https://app.secoto-transport.fr/';
@@ -1663,16 +1673,19 @@
     }
 
     function priceFor(mode, cat, km, rolling) {
-      if (mode === 'convoyage') return Math.max(BAREME.plancher, km * BAREME.convoyage);
+      if (mode === 'convoyage') return Math.max(BAREME.plancherConvoyage, km * BAREME.convoyage);
       let p = km * BAREME.plateau[cat];
       if (cat === 'moto') p = Math.min(p, BAREME.plafondMoto);
-      p = Math.max(BAREME.plancher, p);
+      p = Math.max(BAREME.plancherPlateau, p);
       if (!rolling) p += BAREME.nonRoulant;
       return p;
     }
 
+    // Le convoyage suppose un véhicule qui roule et qui se conduit.
+    function convoyagePossible(cat, rolling) { return rolling && (cat === 'voiture' || cat === 'utilitaire'); }
+
     // Exposé pour les tests uniquement.
-    window.__secotoSim = { findCity, roadKm, priceFor, norm, count: CITIES.length };
+    window.__secotoSim = { findCity, roadKm, priceFor, convoyagePossible, norm, count: CITIES.length };
 
     const $ = id => document.getElementById(id);
     const form = $('sim'); if (!form) return;
@@ -1693,6 +1706,27 @@
     }
 
     let shown = false;
+
+    // Le client choisit sa prestation ; le plateau s'impose quand le convoyage est impossible.
+    function syncMode(convoyable, cat, rolling) {
+      const radios = form.querySelectorAll('input[name="sim-mode"]');
+      const conv = form.querySelector('input[name="sim-mode"][value="convoyage"]');
+      const plat = form.querySelector('input[name="sim-mode"][value="plateau"]');
+      const hint = $('sim-mode-hint');
+      conv.disabled = !convoyable;
+      if (!convoyable) {
+        plat.checked = true;
+        hint.textContent = !rolling
+          ? 'Véhicule non roulant : seul le plateau est possible.'
+          : (cat === 'moto' ? 'Une moto voyage toujours sur plateau.' : 'Une caravane voyage toujours sur plateau.');
+        hint.hidden = false;
+      } else {
+        hint.hidden = true;
+        hint.textContent = '';
+      }
+      const checked = Array.prototype.find.call(radios, r => r.checked);
+      return checked ? checked.value : 'plateau';
+    }
 
     function compute(fromSubmit) {
       const cat = (form.querySelector('input[name="sim-cat"]:checked') || {}).value || 'voiture';
@@ -1723,8 +1757,8 @@
       if (fromSubmit) { fFrom.value = a.n; fTo.value = b.n; }
 
       const km = a === b ? 0 : roadKm(a, b);
-      const convoyable = rolling && (cat === 'voiture' || cat === 'utilitaire');
-      const mode = convoyable ? 'convoyage' : 'plateau';
+      const convoyable = convoyagePossible(cat, rolling);
+      const mode = syncMode(convoyable, cat, rolling);
       const price = Math.round(priceFor(mode, cat, km, rolling));
 
       $('sim-price').textContent = eur(price);
@@ -1735,7 +1769,9 @@
 
       const alt = $('sim-alt');
       if (convoyable) {
-        alt.textContent = 'Le convoyage suppose un véhicule assuré et en état de circuler. Sur plateau : ' + eur(priceFor('plateau', cat, km, true)) + ', au choix dans l’application.';
+        alt.textContent = mode === 'convoyage'
+          ? 'Convoyage : un chauffeur conduit votre véhicule, assuré et en état de circuler. Sur plateau : ' + eur(priceFor('plateau', cat, km, true)) + '.'
+          : 'Plateau : votre véhicule est chargé, aucun kilomètre ajouté au compteur. En convoyage : ' + eur(priceFor('convoyage', cat, km, true)) + '.';
         alt.hidden = false;
       } else alt.hidden = true;
 
@@ -1760,7 +1796,14 @@
     form.addEventListener('submit', e => { e.preventDefault(); compute(true); });
     fFrom.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); fTo.focus(); } });
     // Une fois le prix affiché, il suit les modifications sans nouveau clic.
-    form.addEventListener('change', e => { if (shown && e.target.type === 'radio') compute(false); });
+    form.addEventListener('change', e => {
+      if (e.target.type !== 'radio') return;
+      // Les options impossibles se désactivent tout de suite, avant même le premier calcul.
+      const cat = (form.querySelector('input[name="sim-cat"]:checked') || {}).value || 'voiture';
+      const rolling = ((form.querySelector('input[name="sim-roll"]:checked') || {}).value || '1') === '1';
+      syncMode(convoyagePossible(cat, rolling), cat, rolling);
+      if (shown) compute(false);
+    });
     // Pendant la frappe : pas de message d'erreur, on attend deux villes reconnues.
     [fFrom, fTo].forEach(f => f.addEventListener('input', () => {
       if (f.getAttribute('aria-invalid')) setErr(f, '');

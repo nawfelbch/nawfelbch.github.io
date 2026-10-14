@@ -369,6 +369,9 @@
     .sim-alt{color:var(--txt3);font-size:.8rem;line-height:1.45;}
     .sim-next{color:var(--txt2);font-size:.78rem;}
     .sim-legal{color:var(--txt3);font-size:.7rem;line-height:1.5;}
+    .sim-fallback{display:flex;flex-direction:column;gap:.55rem;text-align:center;padding:.9rem;border-radius:10px;border:1px solid rgba(245,98,15,.35);background:rgba(245,98,15,.07);}
+    .sim-fallback p{color:var(--txt2);font-size:.86rem;line-height:1.5;margin:0;}
+    .sim-go[aria-busy="true"]{opacity:.75;cursor:progress;}
     .sim-call{color:var(--txt3);font-size:.82rem;text-align:center;}
     .sim-call a{color:var(--txt2);font-weight:600;text-decoration:underline;text-underline-offset:3px;}
     .sim-call a:hover{color:#f5620f;}
@@ -819,12 +822,12 @@
           <div class="sim-row">
             <div class="sim-field">
               <label for="sim-from">Départ</label>
-              <input type="text" id="sim-from" list="sim-cities" placeholder="Ex. Paris" inputmode="text" autocapitalize="words" spellcheck="false" enterkeyhint="next" aria-describedby="sim-from-err" />
+              <input type="text" id="sim-from" list="sim-cities" placeholder="Ville, code postal ou adresse" inputmode="text" autocapitalize="words" spellcheck="false" enterkeyhint="next" aria-describedby="sim-from-err" />
               <p class="sim-err" id="sim-from-err" role="alert"></p>
             </div>
             <div class="sim-field">
               <label for="sim-to">Arrivée</label>
-              <input type="text" id="sim-to" list="sim-cities" placeholder="Ex. Marseille" inputmode="text" autocapitalize="words" spellcheck="false" enterkeyhint="go" aria-describedby="sim-to-err" />
+              <input type="text" id="sim-to" list="sim-cities" placeholder="Ville, code postal ou adresse" inputmode="text" autocapitalize="words" spellcheck="false" enterkeyhint="go" aria-describedby="sim-to-err" />
               <p class="sim-err" id="sim-to-err" role="alert"></p>
             </div>
           </div>
@@ -852,6 +855,12 @@
           </fieldset>
 
           <button type="submit" class="btn sim-go" id="sim-go">Voir mon prix en 30 secondes</button>
+
+          <div class="sim-fallback" id="sim-fallback" hidden aria-live="polite">
+            <p id="sim-fallback-txt"></p>
+            <a class="btn sim-book" id="sim-fallback-link" href="https://app.secoto-transport.fr/">Obtenir mon prix exact</a>
+            <p class="sim-next">Sans compte et sans engagement : le prix s'affiche à l'écran.</p>
+          </div>
 
           <div class="sim-result" id="sim-result" hidden aria-live="polite">
             <div class="sim-price-label">Estimation</div>
@@ -1664,6 +1673,71 @@
       return null;
     }
 
+    // Ville de la liste, écrite en entier : réponse immédiate, sans réseau.
+    function findLocal(q) { const k = norm(q); return k ? (INDEX.get(k) || null) : null; }
+
+    // Toutes les communes, adresses et codes postaux de France : Base Adresse
+    // Nationale (service public gratuit, sans clé). Nouvelle adresse officielle
+    // d'abord, l'ancienne en secours.
+    const GEO = ['https://data.geopf.fr/geocodage/search', 'https://api-adresse.data.gouv.fr/search/'];
+    const geoCache = new Map();
+    async function geoFetch(params) {
+      let lastErr = null;
+      for (const base of GEO) {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 4500);
+        try {
+          const r = await fetch(base + '?' + new URLSearchParams(params).toString(), { signal: ctrl.signal });
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return (await r.json()).features || [];
+        } catch (e) { lastErr = e; } finally { clearTimeout(t); }
+      }
+      throw lastErr || new Error('indisponible');
+    }
+    // Renvoie un lieu { n, la, lo }, null si introuvable, ou 'panne' si le service ne répond pas.
+    // Jamais de prix sur un lieu deviné : un nom de commune doit correspondre exactement
+    // (« Berlin » ne devient pas « Berling ») ; sinon l'internaute choisit dans la liste
+    // ou passe par l'application.
+    const versLieu = f => ({ n: f.properties.city || f.properties.name, la: f.geometry.coordinates[1], lo: f.geometry.coordinates[0] });
+    const outreMer = f => /^9[78]/.test(String(f.properties.postcode || f.properties.citycode || ''));
+    async function geocode(q) {
+      const txt = String(q).trim().slice(0, 200);
+      const key = txt.toLowerCase();
+      if (geoCache.has(key)) return geoCache.get(key);
+      const cp = (txt.match(/\b\d{5}\b/) || [])[0] || '';
+      const nom = txt.replace(/\b\d{5}\b/, ' ').replace(/[()]/g, ' ').replace(/\s+/g, ' ').trim();
+      let out = null;
+      try {
+        if (/\d/.test(nom)) {
+          // Adresse complète (« 10 rue de Rivoli Paris ») : premier résultat fiable.
+          const f = (await geoFetch({ q: txt, limit: '1' }))[0];
+          if (f && Number(f.properties.score) >= 0.6 && !outreMer(f)) out = versLieu(f);
+        } else if (!nom && cp) {
+          // Code postal seul.
+          const f = (await geoFetch({ q: cp, limit: '1', type: 'municipality' }))[0];
+          if (f && !outreMer(f)) out = versLieu(f);
+        } else if (norm(nom).length >= 2) {
+          // Nom de commune, éventuellement avec son code postal (« Raismes (59590) »).
+          const params = { q: nom, limit: '10', type: 'municipality' };
+          if (cp) params.postcode = cp;
+          const k = norm(nom);
+          const memes = (await geoFetch(params)).filter(x => !outreMer(x) && norm(x.properties.name) === k);
+          // Plusieurs communes du même nom (Montreuil, Saint-Martin…) : on demande laquelle.
+          if (memes.length > 1 && !cp) out = { ambigu: memes.slice(0, 6).map(x => x.properties.name + ' (' + x.properties.postcode + ')') };
+          else if (memes.length) out = versLieu(memes[0]);
+        }
+      } catch (e) { return 'panne'; }
+      geoCache.set(key, out);
+      return out;
+    }
+    async function resolvePlace(q) {
+      const local = findLocal(q);
+      if (local) return local;
+      const g = await geocode(q);
+      if (g === 'panne') return findCity(q) || 'panne'; // service muet : la liste locale dépanne
+      return g;
+    }
+
     const isCorse = c => c.la < 43.1 && c.lo > 8.4;
 
     function roadKm(a, b) {
@@ -1686,7 +1760,7 @@
     function convoyagePossible(cat, rolling) { return rolling && (cat === 'voiture' || cat === 'utilitaire'); }
 
     // Exposé pour les tests uniquement.
-    window.__secotoSim = { findCity, roadKm, priceFor, convoyagePossible, norm, count: CITIES.length };
+    window.__secotoSim = { findCity, findLocal, resolvePlace, roadKm, priceFor, convoyagePossible, norm, count: CITIES.length };
 
     const $ = id => document.getElementById(id);
     const form = $('sim'); if (!form) return;
@@ -1695,11 +1769,30 @@
     const eur = n => Math.round(n).toLocaleString('fr-FR') + ' €';
 
     // Liste de suggestions (datalist) remplie après le premier affichage.
-    requestAnimationFrame(() => {
-      const dl = $('sim-cities'), frag = document.createDocumentFragment();
-      CITIES.forEach(c => { const o = document.createElement('option'); o.value = c.n; frag.appendChild(o); });
-      dl.appendChild(frag);
-    });
+    const dl = $('sim-cities');
+    function fillList(names) {
+      const frag = document.createDocumentFragment(), seen = new Set();
+      names.forEach(n => { if (!n || seen.has(n)) return; seen.add(n); const o = document.createElement('option'); o.value = n; frag.appendChild(o); });
+      dl.replaceChildren(frag);
+    }
+    requestAnimationFrame(() => fillList(CITIES.map(c => c.n)));
+    let suggestTimer = null, suggestSeq = 0;
+    function suggest(input) {
+      clearTimeout(suggestTimer);
+      const q = input.value.trim();
+      if (q.replace(/\s/g, '').length < 3 || findLocal(q)) return;
+      suggestTimer = setTimeout(async () => {
+        const seq = ++suggestSeq;
+        try {
+          const feats = await geoFetch({ q, limit: '6', autocomplete: '1', type: 'municipality' });
+          if (seq !== suggestSeq) return;
+          const ban = feats.map(f => f.properties.city + (f.properties.postcode ? ' (' + f.properties.postcode + ')' : ''));
+          const k = norm(q);
+          const local = k.length >= 2 ? CITIES.filter(c => norm(c.n).startsWith(k)).slice(0, 4).map(c => c.n) : [];
+          if (ban.length || local.length) fillList([...ban, ...local]);
+        } catch (e) { /* la liste locale reste en place */ }
+      }, 250);
+    }
 
     function setErr(input, msg) {
       $(input.id + '-err').textContent = msg || '';
@@ -1729,35 +1822,75 @@
       return checked ? checked.value : 'plateau';
     }
 
-    function compute(fromSubmit) {
+    const fb = $('sim-fallback'), fbTxt = $('sim-fallback-txt'), fbLink = $('sim-fallback-link');
+    const GO_LABEL = go.textContent;
+    function busy(on) {
+      go.disabled = on;
+      go.setAttribute('aria-busy', on ? 'true' : 'false');
+      go.textContent = on ? 'Calcul de votre prix…' : GO_LABEL;
+    }
+    // Un lieu reste introuvable (étranger, faute de frappe) : pas d'impasse,
+    // le prix exact se calcule dans l'app, trajet déjà rempli.
+    function showFallback(msg) {
+      const mode = (form.querySelector('input[name="sim-mode"]:checked') || {}).value || 'convoyage';
+      fbTxt.textContent = msg;
+      fbLink.href = APP_URL + '?' + new URLSearchParams({ service: mode, from: fFrom.value.trim(), to: fTo.value.trim() }).toString();
+      fb.hidden = false;
+    }
+
+    let seq = 0;
+    async function compute(fromSubmit) {
+      const mySeq = ++seq;
       const cat = (form.querySelector('input[name="sim-cat"]:checked') || {}).value || 'voiture';
       const rolling = ((form.querySelector('input[name="sim-roll"]:checked') || {}).value || '1') === '1';
-      const a = findCity(fFrom.value), b = findCity(fTo.value);
+      fb.hidden = true;
       let bad = null;
-
-      if (!fFrom.value.trim()) { setErr(fFrom, 'Indiquez la ville de départ.'); bad = bad || fFrom; }
-      else if (!a) { setErr(fFrom, 'Ville inconnue : choisissez la ville la plus proche dans la liste.'); bad = bad || fFrom; }
-      else setErr(fFrom, '');
-
-      if (!fTo.value.trim()) { setErr(fTo, 'Indiquez la ville d’arrivée.'); bad = bad || fTo; }
-      else if (!b) { setErr(fTo, 'Ville inconnue : choisissez la ville la plus proche dans la liste.'); bad = bad || fTo; }
-      else setErr(fTo, '');
-
-      if (!bad && isCorse(a) !== isCorse(b)) {
-        setErr(fTo, 'Trajet avec traversée maritime : appelez le 07 83 27 82 31 pour votre prix.');
-        bad = fTo;
-      }
-
+      if (!fFrom.value.trim()) { setErr(fFrom, 'Indiquez le lieu de départ.'); bad = bad || fFrom; }
+      if (!fTo.value.trim()) { setErr(fTo, 'Indiquez le lieu d’arrivée.'); bad = bad || fTo; }
       if (bad) {
-        res.hidden = true; go.hidden = false; shown = false;
-        publish(null);
+        res.hidden = true; go.hidden = false; shown = false; publish(null);
         if (fromSubmit) bad.focus();
         return;
       }
 
-      if (fromSubmit) { fFrom.value = a.n; fTo.value = b.n; }
+      const lent = !findLocal(fFrom.value) || !findLocal(fTo.value);
+      if (lent) busy(true);
+      let a, b;
+      try { [a, b] = await Promise.all([resolvePlace(fFrom.value), resolvePlace(fTo.value)]); }
+      finally { if (lent && mySeq === seq) busy(false); }
+      if (mySeq !== seq) return; // une saisie plus récente a pris le relais
 
-      const km = a === b ? 0 : roadKm(a, b);
+      const ambigu = [[fFrom, a], [fTo, b]].find(([, x]) => x && x.ambigu);
+      if (ambigu) {
+        const [champ, x] = ambigu;
+        fillList(x.ambigu);
+        setErr(champ, 'Plusieurs communes portent ce nom : choisissez la vôtre, par exemple « ' + x.ambigu[0] + ' ».');
+        res.hidden = true; go.hidden = false; shown = false; publish(null);
+        if (fromSubmit) champ.focus();
+        return;
+      }
+
+      const panne = a === 'panne' || b === 'panne';
+      if (a && a !== 'panne') setErr(fFrom, ''); else setErr(fFrom, a === 'panne' ? '' : 'Lieu introuvable en France.');
+      if (b && b !== 'panne') setErr(fTo, ''); else setErr(fTo, b === 'panne' ? '' : 'Lieu introuvable en France.');
+      if (!a || !b || panne) {
+        res.hidden = true; go.hidden = false; shown = false; publish(null);
+        showFallback(panne
+          ? 'La recherche d’adresse ne répond pas pour le moment. Votre prix exact s’obtient en une minute dans l’application.'
+          : 'Trajet hors de France ou lieu non reconnu ? Votre prix exact s’obtient en une minute dans l’application, trajet déjà rempli.');
+        return;
+      }
+
+      if (isCorse(a) !== isCorse(b)) {
+        setErr(fTo, 'Trajet avec traversée maritime : appelez le 07 83 27 82 31 pour votre prix.');
+        res.hidden = true; go.hidden = false; shown = false; publish(null);
+        if (fromSubmit) fTo.focus();
+        return;
+      }
+
+      // Le lieu tapé reste affiché tel quel (adresse, code postal) : seul le prix change.
+
+      const km = (a === b || (a.la === b.la && a.lo === b.lo)) ? 0 : roadKm(a, b);
       const convoyable = convoyagePossible(cat, rolling);
       const mode = syncMode(convoyable, cat, rolling);
       const price = Math.round(priceFor(mode, cat, km, rolling));
@@ -1808,9 +1941,11 @@
     // Pendant la frappe : pas de message d'erreur, on attend deux villes reconnues.
     [fFrom, fTo].forEach(f => f.addEventListener('input', () => {
       if (f.getAttribute('aria-invalid')) setErr(f, '');
+      fb.hidden = true;
+      suggest(f);
       if (!shown) return;
-      if (findCity(fFrom.value) && findCity(fTo.value)) compute(false);
-      else { res.hidden = true; go.hidden = false; shown = false; publish(null); }
+      if (findLocal(fFrom.value) && findLocal(fTo.value)) compute(false);
+      else { seq++; res.hidden = true; go.hidden = false; shown = false; publish(null); }
     }));
   })();
   </script>

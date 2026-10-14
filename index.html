@@ -1874,7 +1874,8 @@
       if (a && a !== 'panne') setErr(fFrom, ''); else setErr(fFrom, a === 'panne' ? '' : 'Lieu introuvable en France.');
       if (b && b !== 'panne') setErr(fTo, ''); else setErr(fTo, b === 'panne' ? '' : 'Lieu introuvable en France.');
       if (!a || !b || panne) {
-        res.hidden = true; go.hidden = false; shown = false; publish(null);
+        // Une seule action principale à l'écran : le bouton de secours remplace « Voir mon prix ».
+        res.hidden = true; go.hidden = true; shown = false; publish(null);
         showFallback(panne
           ? 'La recherche d’adresse ne répond pas pour le moment. Votre prix exact s’obtient en une minute dans l’application.'
           : 'Trajet hors de France ou lieu non reconnu ? Votre prix exact s’obtient en une minute dans l’application, trajet déjà rempli.');
@@ -1941,7 +1942,7 @@
     // Pendant la frappe : pas de message d'erreur, on attend deux villes reconnues.
     [fFrom, fTo].forEach(f => f.addEventListener('input', () => {
       if (f.getAttribute('aria-invalid')) setErr(f, '');
-      fb.hidden = true;
+      if (!fb.hidden) { fb.hidden = true; go.hidden = false; }
       suggest(f);
       if (!shown) return;
       if (findLocal(fFrom.value) && findLocal(fTo.value)) compute(false);

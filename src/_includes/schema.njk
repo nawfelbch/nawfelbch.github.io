@@ -1,0 +1,33 @@
+{%- set orga = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": site.url + "/#organisation",
+  "name": "SECOTO",
+  "url": site.url + "/",
+  "logo": site.url + "/assets/img/logo-512.png",
+  "telephone": site.telephoneIntl,
+  "email": site.email,
+  "description": "Intermédiaire de mise en relation pour le transport de véhicules : SECOTO met en relation ses clients avec des transporteurs professionnels indépendants et vérifiés, qui exécutent le transport.",
+  "address": { "@type": "PostalAddress", "streetAddress": site.adresse.rue, "postalCode": site.adresse.codePostal, "addressLocality": site.adresse.ville, "addressCountry": site.adresse.pays },
+  "contactPoint": { "@type": "ContactPoint", "telephone": site.telephoneIntl, "email": site.email, "contactType": "customer service", "areaServed": "FR", "availableLanguage": "French" },
+  "sameAs": site.profils
+} -%}
+<script type="application/ld+json">{{ orga | json | safe }}</script>
+{%- if page.url == "/" %}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": site.url + "/#site",
+  "url": site.url + "/",
+  "name": "SECOTO",
+  "inLanguage": "fr-FR",
+  "publisher": { "@id": site.url + "/#organisation" }
+} | json | safe }}</script>
+{%- endif %}
+<script type="application/ld+json">{{ fil | schemaFil | json | safe }}</script>
+{%- if faq and faq.length %}
+<script type="application/ld+json">{{ faq | schemaFaq | json | safe }}</script>
+{%- endif %}
+{%- for s in (schemaExtra or []) %}
+<script type="application/ld+json">{{ s | json | safe }}</script>
+{%- endfor %}

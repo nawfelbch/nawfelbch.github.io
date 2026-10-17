@@ -1,0 +1,7 @@
+{
+  "source": "pricing_grids",
+  "versions": { "plateau": 8, "convoyage": 4 },
+  "convoyage": { "minimum": 60, "eur_per_km": { "moto": 1, "voiture": 1, "utilitaire": 1 } },
+  "plateau": { "minimum": 115, "plafond": { "moto": 382 }, "eur_per_km": { "moto": 1, "voiture": 1.2, "utilitaire": 1.25 }, "non_roulant": 80 },
+  "lu_le": "2026-10-17T00:00:00.000Z"
+}

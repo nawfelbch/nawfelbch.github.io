@@ -1,0 +1,165 @@
+{#- Demande sur mesure (plusieurs véhicules, Europe, entreprise) : enregistrée dans mission_requests. -#}
+<section id="devis" aria-labelledby="devis-title">
+  <div class="s-head c reveal">
+    <div class="stag">Demande sur mesure</div>
+    <h2 id="devis-title" class="s-title">Plusieurs véhicules, Europe, <span class="acc">entreprise</span> ?</h2>
+    <p class="s-desc">Pour un trajet seul en France, le simulateur vous donne le prix tout de suite. Pour un besoin hors simulateur, décrivez-le ici : réponse personnalisée par téléphone ou par e-mail.</p>
+  </div>
+
+  <details class="devis-details reveal">
+    <summary>Décrire mon besoin sur mesure</summary>
+  <div class="devis-shell">
+    <div class="svc-toggle-wrap" role="tablist" aria-label="Type de service">
+      <button class="svc-btn active" id="btn-auto" role="tab" aria-selected="true" aria-controls="block-auto" data-service="auto">
+        <span class="svc-ico" aria-hidden="true">🚗</span>
+        <span class="svc-label">Convoyage Auto</span>
+        <span class="svc-sub">Véhicule roulant, par chauffeur</span>
+      </button>
+      <button class="svc-btn" id="btn-moto" role="tab" aria-selected="false" aria-controls="block-moto" data-service="moto">
+        <span class="svc-ico" aria-hidden="true">🏍️</span>
+        <span class="svc-label">Transport Plateau</span>
+        <span class="svc-sub">Moto, scooter, non roulant</span>
+      </button>
+    </div>
+
+    <div class="devis-body">
+      <form id="devis-form" name="devis" method="POST" novalidate>
+                <input type="hidden" name="bot-field" />
+
+        <div class="devis-block">
+          <div class="devis-block-title">01 — Vos coordonnées</div>
+          <div class="dform-grid">
+            <div class="field">
+              <label for="f-prenom">Prénom *</label>
+              <input type="text" id="f-prenom" name="prenom" placeholder="Jean" autocomplete="given-name" required />
+            </div>
+            <div class="field">
+              <label for="f-nom">Nom *</label>
+              <input type="text" id="f-nom" name="nom" placeholder="Dupont" autocomplete="family-name" required />
+            </div>
+            <div class="field">
+              <label for="f-societe">Société</label>
+              <input type="text" id="f-societe" name="societe" placeholder="Votre entreprise" autocomplete="organization" />
+            </div>
+            <div class="field">
+              <label for="f-tel">Téléphone *</label>
+              <input type="tel" id="f-tel" name="telephone" placeholder="+33 6 00 00 00 00" autocomplete="tel" required />
+            </div>
+            <div class="field dfull">
+              <label for="f-email">Email *</label>
+              <input type="email" id="f-email" name="email" placeholder="jean.dupont@entreprise.fr" autocomplete="email" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="devis-block">
+          <div class="devis-block-title">02 — Le trajet</div>
+          <div class="dform-grid">
+            <div class="field">
+              <label for="f-depart">Ville de départ *</label>
+              <input type="text" id="f-depart" name="depart" placeholder="Paris" required />
+            </div>
+            <div class="field">
+              <label for="f-arrivee">Ville d’arrivée *</label>
+              <input type="text" id="f-arrivee" name="arrivee" placeholder="Marseille" required />
+            </div>
+            <div class="field">
+              <label for="f-km">Distance estimée (km)</label>
+              <div class="champ-unite">
+                <input type="number" id="f-km" name="distance_km" placeholder="ex: 250" min="1" />
+                <span aria-hidden="true">km</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-date">Date souhaitée</label>
+              <input type="date" id="f-date" name="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="devis-block" id="block-auto" role="tabpanel" aria-labelledby="btn-auto">
+          <div class="devis-block-title">03 — Le véhicule à convoyer</div>
+          <div class="dform-grid">
+            <div class="field">
+              <label for="f-marque-auto">Marque</label>
+              <input type="text" id="f-marque-auto" name="marque" placeholder="Renault, BMW, Peugeot…" />
+            </div>
+            <div class="field">
+              <label for="f-modele-auto">Modèle</label>
+              <input type="text" id="f-modele-auto" name="modele" placeholder="Clio, Série 3…" />
+            </div>
+            <div class="field">
+              <label for="f-immat">Immatriculation</label>
+              <input type="text" id="f-immat" name="immatriculation" placeholder="AA-000-AA" />
+            </div>
+            <div class="field">
+              <label for="f-type-auto">Type de véhicule</label>
+              <select id="f-type-auto" name="type_vehicule">
+                <option value="">Sélectionner</option>
+                <option value="berline">Berline</option>
+                <option value="suv">SUV / 4x4</option>
+                <option value="citadine">Citadine</option>
+                <option value="break">Break</option>
+                <option value="cabriolet">Cabriolet</option>
+                <option value="utilitaire">Utilitaire léger</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div class="field dfull">
+              <label for="f-info-auto">Informations complémentaires</label>
+              <textarea id="f-info-auto" name="infos" placeholder="Clés à récupérer chez un tiers, heure de disponibilité, contact sur place…" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="devis-block" id="block-moto" role="tabpanel" aria-labelledby="btn-moto" hidden>
+          <div class="devis-block-title">03 — Le véhicule à transporter</div>
+          <div class="dform-grid">
+            <div class="field">
+              <label for="f-type-plateau">Type de véhicule</label>
+              <select id="f-type-plateau" name="type_plateau">
+                <option value="moto">Moto</option>
+                <option value="scooter">Scooter / 50cc</option>
+                <option value="quad">Quad</option>
+                <option value="auto-non-roulante">Voiture non roulante</option>
+                <option value="auto-prestige">Voiture de prestige / collection</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-nb-motos">Nombre de véhicules</label>
+              <select id="f-nb-motos" name="nb_motos">
+                <option value="1">1 véhicule</option>
+                <option value="2">2 véhicules</option>
+                <option value="3">3 véhicules</option>
+                <option value="4+">4 véhicules et plus</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-marque-moto">Marque</label>
+              <input type="text" id="f-marque-moto" name="marque_moto" placeholder="Honda, Yamaha, Ducati…" />
+            </div>
+            <div class="field">
+              <label for="f-modele-moto">Modèle</label>
+              <input type="text" id="f-modele-moto" name="modele_moto" placeholder="CBR, MT-07…" />
+            </div>
+            <div class="field dfull">
+              <label for="f-info-moto">Informations complémentaires</label>
+              <textarea id="f-info-moto" name="infos_moto" placeholder="Le véhicule roule-t-il ? Accès (parking souterrain, box, garage), heure de disponibilité…" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-ghost btn-large">
+          Recevoir mon devis sur mesure →
+        </button>
+        <div class="form-success" id="fs" role="alert">✓ Demande envoyée ! Nous vous recontactons rapidement.</div>
+      </form>
+
+    </div>
+  </div>
+  </details>
+
+  <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
+
+</section>

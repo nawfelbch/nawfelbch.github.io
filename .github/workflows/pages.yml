@@ -1,0 +1,66 @@
+# Construction et mise en ligne de secoto-transport.fr (Eleventy → GitHub Pages).
+# - à chaque push sur main ;
+# - chaque nuit : relit le barème actif de l'app, les prix « à partir de » suivent ;
+# - à la demande (bouton « Run workflow »).
+# Si le barème ne peut pas être lu ou si un contrôle échoue, rien n'est publié :
+# la version déjà en ligne reste en place.
+name: Site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  construire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run check
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publier:
+    needs: construire
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - id: deploiement
+        uses: actions/deploy-pages@v4
+
+  indexnow:
+    # Signale les pages à Bing / IndexNow après une modification du site (pas pour la relecture nocturne).
+    if: github.event_name == 'push'
+    needs: publier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping IndexNow
+        run: |
+          sleep 30
+          urls=$(curl -fsSL https://secoto-transport.fr/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//' | head -n 10000 | jq -R . | jq -s -c .)
+          curl -sS -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"secoto-transport.fr\",\"key\":\"6f3c2a9e8b1d4c7fa0e5b2d9c4a1f3e8\",\"keyLocation\":\"https://secoto-transport.fr/6f3c2a9e8b1d4c7fa0e5b2d9c4a1f3e8.txt\",\"urlList\":$urls}" \
+            -w '\nIndexNow : HTTP %{http_code}\n' || true

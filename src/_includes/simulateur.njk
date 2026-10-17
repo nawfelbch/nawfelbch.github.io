@@ -1,0 +1,66 @@
+{%- set slugPage = slugUtm or (page.fileSlug or "accueil") -%}
+
+<!-- ══ SIMULATEUR DE PRIX — sans compte, calcul 100 % navigateur ══ -->
+<div class="hero-right" id="simulateur">
+  <form class="sim" id="sim" data-campagne="{{ slugPage }}" novalidate autocomplete="off" aria-labelledby="sim-title">
+    <div class="sim-head">
+      <h2 class="sim-title" id="sim-title">Votre prix en 30 secondes</h2>
+      <p class="sim-sub">Sans inscription · aucune donnée personnelle</p>
+    </div>
+
+    <div class="sim-row">
+      <div class="sim-field">
+        <label for="sim-from">Départ</label>
+        <input type="text" id="sim-from"{% if trajet %} value="{{ trajet.depart }}"{% endif %} list="sim-cities" placeholder="Ville, code postal ou adresse" inputmode="text" autocapitalize="words" spellcheck="false" enterkeyhint="next" aria-describedby="sim-from-err" />
+        <p class="sim-err" id="sim-from-err" role="alert"></p>
+      </div>
+      <div class="sim-field">
+        <label for="sim-to">Arrivée</label>
+        <input type="text" id="sim-to"{% if trajet %} value="{{ trajet.arrivee }}"{% endif %} list="sim-cities" placeholder="Ville, code postal ou adresse" inputmode="text" autocapitalize="words" spellcheck="false" enterkeyhint="go" aria-describedby="sim-to-err" />
+        <p class="sim-err" id="sim-to-err" role="alert"></p>
+      </div>
+    </div>
+    <datalist id="sim-cities"></datalist>
+
+    <fieldset class="sim-seg">
+      <legend>Prestation</legend>
+      <label><input type="radio" name="sim-mode" value="convoyage" checked /><span>Convoyage</span></label>
+      <label><input type="radio" name="sim-mode" value="plateau" /><span>Plateau</span></label>
+      <p class="sim-hint" id="sim-mode-hint" hidden></p>
+    </fieldset>
+
+    <fieldset class="sim-seg sim-seg-4">
+      <legend>Véhicule</legend>
+      <label><input type="radio" name="sim-cat" value="voiture" checked /><span>Voiture</span></label>
+      <label><input type="radio" name="sim-cat" value="moto" /><span>Moto</span></label>
+      <label><input type="radio" name="sim-cat" value="utilitaire" /><span>Utilitaire</span></label>
+      <label><input type="radio" name="sim-cat" value="caravane" /><span>Caravane</span></label>
+    </fieldset>
+
+    <fieldset class="sim-seg">
+      <legend>État</legend>
+      <label><input type="radio" name="sim-roll" value="1" checked /><span>Roulant</span></label>
+      <label><input type="radio" name="sim-roll" value="0" /><span>Non roulant</span></label>
+    </fieldset>
+
+    <button type="submit" class="btn sim-go" id="sim-go">Voir mon prix en 30 secondes</button>
+
+    <div class="sim-fallback" id="sim-fallback" hidden aria-live="polite">
+      <p id="sim-fallback-txt"></p>
+      <a class="btn sim-book" id="sim-fallback-link" href="{{ slugPage | lienApp }}">Obtenir mon prix exact</a>
+      <p class="sim-next">Sans compte et sans engagement : le prix s'affiche à l'écran.</p>
+    </div>
+
+    <div class="sim-result" id="sim-result" hidden aria-live="polite">
+      <div class="sim-price-label">Estimation</div>
+      <div class="sim-price" id="sim-price">—</div>
+      <div class="sim-detail" id="sim-detail"></div>
+      <div class="sim-alt" id="sim-alt" hidden></div>
+      <a class="btn sim-book" id="sim-book" href="{{ slugPage | lienApp }}">Réserver</a>
+      <p class="sim-next">Réservation en 1 minute dans l’application, sans mot de passe à créer.</p>
+      <p class="sim-legal">Estimation confirmée par le prix exact dans l’application, avant tout paiement. TVA non applicable, article 293 B du CGI. {{ site.mentionRole }}</p>
+    </div>
+
+    <p class="sim-call">Vous préférez en parler ? <a href="tel:{{ site.telephoneIntl }}">{{ site.telephone }}</a></p>
+  </form>
+</div>

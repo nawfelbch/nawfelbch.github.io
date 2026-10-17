@@ -1,0 +1,192 @@
+---
+layout: base.njk
+title: "Transport de véhicules : prix immédiat en ligne | SECOTO"
+description: "Voiture, moto, utilitaire, roulant ou non : votre prix de transport en 30 secondes, sans inscription. Transporteurs vérifiés partout en France."
+simulateur: true
+---
+{%- set L = prix.libelles -%}
+<section id="hero" aria-labelledby="hero-title">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-pill" aria-hidden="true">
+        <span class="hero-pill-dot"></span>Transport de véhicules · Roulants &amp; non roulants · France
+      </div>
+      <h1 id="hero-title" class="hero-title">
+        <span class="line-1">Transport de véhicules</span><br>
+        <span class="line-2">votre prix immédiat</span><br class="br-3">
+        <span class="line-3">Auto · Moto · Utilitaire</span>
+      </h1>
+      <p class="hero-desc">Convoyage par chauffeur pour les véhicules roulants, transport sur plateau pour les motos, scooters et véhicules non roulants. SECOTO vous met en relation avec un transporteur professionnel indépendant et vérifié, qui exécute le transport, partout en France.</p>
+      <div class="hero-trust" aria-label="Points clés">
+        <div class="trust-item">✓ <span>Prix immédiat, sans inscription</span></div>
+        <div class="trust-item">✓ <span>Roulant ou non roulant</span></div>
+        <div class="trust-item">✓ <span>Remboursé si aucun transporteur n’accepte</span></div>
+      </div>
+    </div>
+    {% include "simulateur.njk" %}
+  </div>
+</section>
+
+<section id="services" aria-labelledby="services-title">
+  <div class="s-head c reveal">
+    <div class="stag">Les prestations</div>
+    <h2 id="services-title" class="s-title">Nos <span class="acc">services</span></h2>
+    <p class="s-desc">Quel que soit le véhicule — roulant, en panne, deux-roues ou de collection — il existe un mode de transport adapté. Pour les particuliers comme pour les garages, concessions, marchands et loueurs.</p>
+  </div>
+  <div class="services-grid">
+    <article class="tilt-card reveal">
+      <div class="card-ico" aria-hidden="true">🚘</div>
+      <h3>Convoyage par chauffeur</h3>
+      <p>Un convoyeur professionnel prend le volant et conduit votre véhicule jusqu’à destination. La solution la plus économique pour un véhicule roulant, assuré et en état de circuler. Carburant et péages inclus dans le prix.</p>
+      <div class="chip-row" aria-label="Points forts">
+        <span class="chip">Convoyeur vérifié</span><span class="chip">Carburant &amp; péages inclus</span>
+        <span class="chip">État des lieux photo</span><span class="chip">Partout en France</span>
+      </div>
+    </article>
+    <article class="tilt-card reveal">
+      <div class="card-ico" aria-hidden="true">🏍️</div>
+      <h3>Transport de moto et de scooter</h3>
+      <p>Motos, scooters, maxi-scooters et quads voyagent sur plateau, chargés et sanglés par le transporteur. Le deux-roues ne parcourt aucun kilomètre par lui-même, ce qui convient aussi aux machines sans assurance ou en panne.</p>
+      <div class="chip-row" aria-label="Points forts">
+        <span class="chip">Sanglage professionnel</span><span class="chip">Toutes cylindrées</span>
+        <span class="chip">Plusieurs machines</span><span class="chip">Péages inclus</span>
+      </div>
+    </article>
+    <article class="tilt-card reveal">
+      <div class="card-ico" aria-hidden="true">🛻</div>
+      <h3>Non roulants et prestige</h3>
+      <p>Voiture en panne, accidentée, sans contrôle technique, non assurée, sortie de grange ou véhicule de collection : le plateau est la solution adaptée. Enlèvement au domicile, au garage ou au parking.</p>
+      <div class="chip-row" aria-label="Points forts">
+        <span class="chip">En panne / accidenté</span><span class="chip">Non assuré</span>
+        <span class="chip">Collection &amp; prestige</span><span class="chip">Enlèvement sur place</span>
+      </div>
+    </article>
+    <article class="tilt-card reveal">
+      <div class="card-ico" aria-hidden="true">🏢</div>
+      <h3>Professionnels et flottes</h3>
+      <p>Garages, concessions, marchands, loueurs et sociétés de VTC : compte entreprise, plusieurs véhicules par demande, facture automatique et devis payable en un clic.</p>
+      <div class="chip-row" aria-label="Points forts">
+        <span class="chip">Compte entreprise</span><span class="chip">Plusieurs véhicules</span>
+        <span class="chip">Facture automatique</span><span class="chip">Devis en un clic</span>
+      </div>
+    </article>
+  </div>
+  <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
+</section>
+
+<section id="why" aria-labelledby="why-title">
+  <div class="s-head reveal">
+    <div class="stag">Les engagements</div>
+    <h2 id="why-title" class="s-title">Pourquoi choisir <span class="acc">SECOTO</span> ?</h2>
+    <p class="s-desc">Un seul interlocuteur pour vos transports de véhicules, quel que soit le véhicule, le mode de transport ou la distance.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">01</span><span class="why-ico" aria-hidden="true">⚡</span><h3>Rapidité</h3><p>Votre prix s’affiche en 30 secondes. Dès la réservation, la demande part aux transporteurs vérifiés compatibles avec votre véhicule.</p></div>
+    <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">02</span><span class="why-ico" aria-hidden="true">🛡️</span><h3>Transporteurs vérifiés</h3><p>Immatriculation, inscription au registre des transporteurs et assurance responsabilité civile et marchandises contrôlées. État des lieux photo au départ et à l’arrivée.</p></div>
+    <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">03</span><span class="why-ico" aria-hidden="true">🔒</span><h3>Paiement sécurisé</h3><p>Le paiement reste en réserve le temps qu’un transporteur accepte. Si aucun ne se rend disponible, vous êtes remboursé intégralement.</p></div>
+    <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">04</span><span class="why-ico" aria-hidden="true">💶</span><h3>Transparence</h3><p>Prix en ligne, sans inscription : convoyage à partir de {{ L.convoyageMin }}, plateau à partir de {{ L.plateauMin }}. Péages inclus, vous connaissez le prix avant de réserver.</p></div>
+  </div>
+  <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
+</section>
+
+<section id="tarifs" aria-labelledby="tarifs-title">
+  <div class="s-head c reveal">
+    <div class="stag">Tarification</div>
+    <h2 id="tarifs-title" class="s-title">Des prix <span class="acc">clairs</span></h2>
+    <p class="s-desc">Un barème au kilomètre, le même pour tous. Le simulateur l’applique à votre trajet : vous connaissez le prix avant de créer un compte, et avant de payer.</p>
+  </div>
+  <div class="tarifs-grid">
+    <div class="tarif-card reveal">
+      <span class="tarif-ico" aria-hidden="true">🚗</span>
+      <h3>Convoyage par chauffeur</h3>
+      <div class="tarif-price">{{ L.convoyageKm | replace(",00 €", "€") }}<small>/km</small></div>
+      <div class="tarif-unit">toutes distances — à partir de {{ L.convoyageMin }}</div>
+      <ul class="tarif-feats">
+        <li>Convoyeur professionnel vérifié</li>
+        <li>Prise en charge sur place</li>
+        <li>État des lieux photo complet</li>
+        <li>Carburant et péages inclus</li>
+        <li>Bon de livraison signé</li>
+      </ul>
+    </div>
+    <div class="tarif-card feat reveal">
+      <div class="feat-badge">LE PLUS DEMANDÉ</div>
+      <span class="tarif-ico" aria-hidden="true">🏍️</span>
+      <h3>Transport sur plateau</h3>
+      <div class="tarif-price"><small>dès </small>{{ L.plateauMotoKm | replace(",00 €", "€") }}<small>/km</small></div>
+      <div class="tarif-unit">Moto, scooter, voiture, utilitaire, caravane — roulant ou non</div>
+      <ul class="tarif-feats">
+        <li>Moto : {{ L.plateauMotoKm }}/km{% if L.plafondMoto %}, jamais plus de {{ L.plafondMoto }}{% endif %}</li>
+        <li>Voiture : {{ L.plateauVoitureKm }}/km</li>
+        <li>Utilitaire, camionnette, caravane : {{ L.plateauUtilitaireKm }}/km</li>
+        <li>Non roulant : + {{ L.nonRoulant }}</li>
+        <li>Chargement, sanglage et péages inclus</li>
+      </ul>
+      <p class="tarif-note">Minimum <strong>{{ L.plateauMin }}</strong> · prix affiché immédiatement</p>
+    </div>
+    <div class="tarif-card reveal">
+      <span class="tarif-ico" aria-hidden="true">🏢</span>
+      <h3>Professionnels</h3>
+      <div class="tarif-price tarif-price-texte">Sur devis</div>
+      <div class="tarif-unit">garages, concessions, marchands, loueurs, VTC</div>
+      <ul class="tarif-feats">
+        <li>Compte entreprise</li>
+        <li>Plusieurs véhicules par demande</li>
+        <li>Facture automatique</li>
+        <li>Devis payable en un clic</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
+</section>
+
+{% include "accueil-devis.njk" %}
+
+<section id="comment" aria-labelledby="comment-title">
+  <div class="s-head c reveal">
+    <div class="stag">Processus</div>
+    <h2 id="comment-title" class="s-title">Comment ça <span class="acc">marche ?</span></h2>
+    <p class="s-desc">Du prix à la livraison, en quatre étapes. SECOTO vous met en relation avec un transporteur professionnel indépendant et vérifié, qui exécute le transport.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num" aria-hidden="true">1</div>
+      <div class="step-icon" aria-hidden="true">📋</div>
+      <h3 class="step-title">Votre prix</h3>
+      <p class="step-desc">Départ, arrivée, type de véhicule, roulant ou non : le prix s’affiche tout de suite, sans inscription.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num" aria-hidden="true">2</div>
+      <div class="step-icon" aria-hidden="true">🤝</div>
+      <h3 class="step-title">Réservation</h3>
+      <p class="step-desc">Votre nom et votre e-mail suffisent, puis vous payez dans l’application. Le paiement reste en réserve le temps qu’un transporteur vérifié accepte ; sinon, remboursement intégral.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num" aria-hidden="true">3</div>
+      <div class="step-icon" aria-hidden="true">📸</div>
+      <h3 class="step-title">Prise en charge</h3>
+      <p class="step-desc">Le transporteur réalise l’état des lieux photo, charge le véhicule ou prend le volant. Vous suivez la commande dans l’application.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num" aria-hidden="true">4</div>
+      <div class="step-icon" aria-hidden="true">✅</div>
+      <h3 class="step-title">Livraison</h3>
+      <p class="step-desc">Le destinataire contrôle le véhicule et signe le bon de livraison dans l’application.</p>
+    </div>
+  </div>
+  <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
+</section>
+
+<section id="faq" aria-labelledby="faq-title">
+  <div class="s-head c reveal">
+    <div class="stag">Questions fréquentes</div>
+    <h2 id="faq-title" class="s-title">Tout ce que vous <span class="acc">voulez savoir</span></h2>
+  </div>
+  {% include "faq.njk" %}
+  <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
+</section>
+
+{% include "accueil-contact.njk" %}

@@ -1,0 +1,19 @@
+{
+  "name": "secoto-transport-site",
+  "private": true,
+  "type": "module",
+  "description": "Site vitrine secoto-transport.fr — Eleventy, pré-rendu statique, déployé sur GitHub Pages.",
+  "scripts": {
+    "bareme": "node scripts/bareme.mjs",
+    "build": "node scripts/bareme.mjs && eleventy",
+    "build:preview": "PREVIEW=1 eleventy",
+    "serve": "eleventy --serve",
+    "check": "node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.2",
+    "@fontsource/bebas-neue": "5.2.5",
+    "@fontsource/dm-sans": "5.2.5",
+    "cheerio": "1.0.0"
+  }
+}

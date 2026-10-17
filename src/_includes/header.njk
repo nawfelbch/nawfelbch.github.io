@@ -1,0 +1,22 @@
+<header id="hdr">
+  <a href="/" class="logo" aria-label="SECOTO — accueil">
+    <img src="/assets/img/logo-96.webp" alt="SECOTO" width="38" height="38" fetchpriority="high">
+  </a>
+  <nav id="nav" aria-label="Navigation principale">
+    <a href="/#services">Services</a>
+    <a href="/#tarifs">Tarifs</a>
+    <a href="/#comment">Comment ça marche</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/#contact">Contact</a>
+    <a href="{{ slugPage | lienApp }}" class="nav-login">Espace client</a>
+    <button type="button" class="theme-toggle" id="themeBtn" aria-label="Changer de thème">
+      <span class="t-dark" aria-hidden="true">🌙</span>
+      <span class="t-light" aria-hidden="true">☀️</span>
+    </button>
+    <a href="tel:{{ site.telephoneIntl }}" class="cta-tel hdr-tel" aria-label="Appeler SECOTO au {{ site.telephone }}">{{ site.telephone }}</a>
+    <a href="{{ '/#simulateur' if not simulateur else '#simulateur' }}" class="btn-nav js-main-cta" id="hdr-cta">Voir mon prix en 30 secondes</a>
+  </nav>
+  <button type="button" class="hamburger" id="hbg" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
+    <span></span><span></span><span></span>
+  </button>
+</header>

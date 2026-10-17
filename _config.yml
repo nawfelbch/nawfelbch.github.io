@@ -1,0 +1,11 @@
+# Tant que GitHub Pages publie encore la branche (avant le passage à
+# « GitHub Actions »), Jekyll ignore les sources Eleventy : l'ancienne page
+# index.html reste en ligne, rien ne casse.
+exclude:
+  - src
+  - scripts
+  - node_modules
+  - package.json
+  - package-lock.json
+  - eleventy.config.js
+  - README-site.md

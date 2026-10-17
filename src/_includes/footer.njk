@@ -1,0 +1,56 @@
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="logo" aria-label="SECOTO — accueil">
+        <img src="/assets/img/logo-96.webp" alt="SECOTO" width="42" height="42" loading="lazy">
+      </a>
+      <p>Transport de véhicules en France : convoyage par chauffeur, transport sur plateau pour voitures, motos, scooters, utilitaires et véhicules non roulants. Prix immédiat en ligne, sans inscription.</p>
+      <p class="footer-role">{{ site.mentionRole }}</p>
+      <a href="{{ '/#simulateur' if not simulateur else '#simulateur' }}" class="btn js-main-cta footer-cta">Voir mon prix en 30 secondes</a>
+    </div>
+    <div class="footer-col">
+      <h2 class="footer-titre">Services</h2>
+      <ul>
+        <li><a href="/#services">Convoyage par chauffeur</a></li>
+        <li><a href="/#services">Transport de moto et de scooter</a></li>
+        <li><a href="/#services">Véhicules non roulants et de prestige</a></li>
+        <li><a href="/#services">Professionnels et flottes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h2 class="footer-titre">Informations</h2>
+      <ul>
+        <li><a href="/#comment">Comment ça marche</a></li>
+        <li><a href="/#tarifs">Tarifs</a></li>
+        <li><a href="/#faq">Questions fréquentes</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="{{ slugPage | lienApp }}">Espace client</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h2 class="footer-titre">Légal</h2>
+      <ul>
+        <li><a href="/mentions-legales/">Mentions légales</a></li>
+        <li><a href="{{ site.appUrl }}cgu.html">Conditions générales</a></li>
+        <li><a href="{{ site.appUrl }}politique-confidentialite.html">Confidentialité</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {{ build.date | truncate(4, true, "") }} SECOTO — Immatriculation en cours de mise à jour · Transport de véhicules auto, moto et utilitaire · France</p>
+    <p>
+      <a href="tel:{{ site.telephoneIntl }}">{{ site.telephone }}</a> ·
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a> ·
+      <a href="/mentions-legales/">Mentions légales</a>
+    </p>
+  </div>
+</footer>
+
+<a href="#contenu" id="btt" aria-label="Retour en haut de page">↑</a>
+
+<div class="mbar" id="mbar">
+  <a href="{{ '/#simulateur' if not simulateur else '#simulateur' }}" class="btn js-main-cta">Voir mon prix en 30 secondes</a>
+  <a href="tel:{{ site.telephoneIntl }}" class="mbar-tel" aria-label="Appeler SECOTO au {{ site.telephone }}">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+  </a>
+</div>

@@ -6,6 +6,10 @@ const L = prix.libelles;
 
 export default [
   {
+    q: "Quand est-ce que je paie ?",
+    r: "Seulement à l’arrivée du véhicule. À la réservation, 0 € est prélevé : votre carte bancaire est seulement enregistrée, en garantie. Une fois le véhicule livré, vous réglez au choix par carte, en plusieurs fois avec Klarna (sous réserve d’acceptation), par virement ou en espèces au transporteur (jusqu’à 1 000 €).",
+  },
+  {
     q: "Quelle différence entre convoyage et transport sur plateau ?",
     r: "En convoyage, un conducteur professionnel prend le volant : c’est la solution la plus économique, réservée aux véhicules roulants, assurés et en état de circuler. Sur plateau, le véhicule est chargé et sanglé sur un camion : il ne parcourt aucun kilomètre par lui-même. Le plateau s’impose pour une moto, un scooter, un véhicule non roulant, sans contrôle technique ou de valeur.",
   },
@@ -31,7 +35,7 @@ export default [
   },
   {
     q: "Combien de temps pour trouver un transporteur ?",
-    r: "Le prix s’affiche immédiatement. Une fois la réservation payée, la demande part aux transporteurs vérifiés compatibles, qui ont jusqu’à 48 h pour l’accepter. Si aucun ne se rend disponible, vous êtes remboursé intégralement.",
+    r: "Le prix s’affiche immédiatement. Dès la réservation (0 € prélevé), la demande part aux transporteurs vérifiés compatibles, qui ont jusqu’à 48 h pour l’accepter. Si aucun ne se rend disponible, rien n’est prélevé et la demande est annulée.",
   },
   {
     q: "Comment les transporteurs sont-ils vérifiés ?",

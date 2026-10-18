@@ -194,7 +194,7 @@
         "name": "Quel est le délai de prise en charge ?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Le prix s'affiche immédiatement sur le site. Une fois la réservation payée, la demande part aux transporteurs vérifiés compatibles, qui ont jusqu'à 48 h pour l'accepter ; sinon, remboursement intégral sous 24 h. Pour une urgence, appelez le 07 83 27 82 31."
+          "text": "Le prix s'affiche immédiatement sur le site. Dès la réservation (0 € prélevé), la demande part aux transporteurs vérifiés compatibles, qui ont jusqu'à 48 h pour l'accepter ; sinon, rien n'est prélevé. Pour une urgence, appelez le 07 83 27 82 31."
         }
       }
     ]
@@ -321,6 +321,10 @@
     .hero-desc{color:rgba(232,237,245,.6) !important;font-size:1.05rem;font-weight:300;line-height:1.75;margin-bottom:2.5rem;max-width:460px;}
     .hero-cta{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
     .hero-trust{margin-top:3rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+    .hero-zero{display:inline-block;margin:-0.5rem 0 1.6rem;padding:.6rem 1.1rem;border-radius:999px;border:1px solid rgba(52,211,153,.55);background:rgba(52,211,153,.14);color:#e8edf5;font-size:1rem;line-height:1.45;}
+    .hero-zero strong{color:#34d399;font-size:1.1em;}
+    [data-theme="light"] .hero-zero{color:#0a1628;}
+    [data-theme="light"] .hero-zero strong{color:#047857;}
     .trust-item{display:flex;align-items:center;gap:.5rem;color:rgba(232,237,245,.3);font-size:.82rem;}
     .trust-item span{color:#f5620f;font-weight:600;}
     .hero-right{display:flex;flex-direction:column;gap:1.2rem;}
@@ -634,6 +638,7 @@
       .hero-title{order:1;font-size:clamp(2rem,8.6vw,3rem);margin-bottom:0;}
       .hero-title .line-3,.hero-title .br-3{display:none;}
       .hero-right{order:2;}
+      .hero-zero{order:1;margin:.6rem 0 0;font-size:.92rem;}
       .hero-desc{order:3;margin-bottom:0;font-size:.95rem;}
       .hero-trust{order:4;margin-top:0;}
       .sim{padding:1.1rem 1rem 1rem;gap:.75rem;}
@@ -802,11 +807,12 @@
           <span class="line-2">votre prix immédiat</span><br class="br-3">
           <span class="line-3">Auto · Moto · Utilitaire</span>
         </h1>
+        <p class="hero-zero"><strong>0&nbsp;€ à la réservation</strong> · vous ne payez qu’à l’arrivée du véhicule</p>
         <p class="hero-desc">Convoyage par chauffeur pour les véhicules roulants, transport sur plateau pour les motos, scooters et véhicules non roulants. SECOTO vous met en relation avec des transporteurs partenaires vérifiés, partout en France.</p>
         <div class="hero-trust" aria-label="Garanties">
           <div class="trust-item">✓ <span>Prix immédiat, sans inscription</span></div>
           <div class="trust-item">✓ <span>Roulant ou non roulant</span></div>
-          <div class="trust-item">✓ <span>7j/7</span></div>
+          <div class="trust-item">✓ <span>Paiement à l’arrivée : carte, Klarna, virement ou espèces</span></div>
         </div>
       </div>
 
@@ -867,8 +873,8 @@
             <div class="sim-detail" id="sim-detail"></div>
             <div class="sim-alt" id="sim-alt" hidden></div>
             <a class="btn sim-book" id="sim-book" href="https://app.secoto-transport.fr">Réserver</a>
-            <p class="sim-next">Compte créé à l'étape suivante, pour la réservation, le paiement et le suivi.</p>
-            <p class="sim-legal">Estimation confirmée par un devis ferme dans l'application avant tout paiement. TVA non applicable, article 293 B du CGI. SECOTO : prestation de mise en relation avec des transporteurs partenaires vérifiés.</p>
+            <p class="sim-next"><strong>0&nbsp;€ aujourd'hui</strong> : vous ne payez qu'à l'arrivée du véhicule. Réservation en 1 minute.</p>
+            <p class="sim-legal">Estimation confirmée par un devis ferme dans l'application. Rien n'est prélevé avant l'arrivée du véhicule. TVA non applicable, article 293 B du CGI. SECOTO : prestation de mise en relation avec des transporteurs partenaires vérifiés.</p>
           </div>
 
           <p class="sim-call">Vous préférez en parler ? <a href="tel:+33783278231">07 83 27 82 31</a></p>
@@ -989,7 +995,7 @@
     <div class="s-head c reveal">
       <div class="stag">Tarification</div>
       <h2 id="tarifs-title" class="s-title">Des prix <span class="acc">clairs</span></h2>
-      <p class="s-desc">Un barème au kilomètre, identique pour tous. Convoyage à partir de 60 €. Le simulateur l'applique à votre trajet : vous connaissez le prix avant de créer un compte, et avant de payer.</p>
+      <p class="s-desc">Un barème au kilomètre, identique pour tous. Convoyage à partir de 60 €. Le simulateur l'applique à votre trajet : vous connaissez le prix avant de créer un compte, et vous ne payez qu'à l'arrivée du véhicule.</p>
     </div>
     <div class="tarifs-grid">
       <div class="tarif-card reveal">
@@ -1375,7 +1381,7 @@
         <div class="step-num" aria-hidden="true">2</div>
         <div class="step-icon" aria-hidden="true">🤝</div>
         <h3 class="step-title">Réservation</h3>
-        <p class="step-desc">Vous créez votre compte et payez dans l'application. Le paiement reste en réserve le temps qu'un transporteur vérifié accepte ; sinon, remboursement intégral.</p>
+        <p class="step-desc">Vous créez votre compte en 1 minute. 0&nbsp;€ à la réservation : votre carte est seulement enregistrée, et la demande part aux transporteurs vérifiés.</p>
       </div>
       <div class="step-card reveal">
         <div class="step-num" aria-hidden="true">3</div>
@@ -1387,7 +1393,7 @@
         <div class="step-num" aria-hidden="true">4</div>
         <div class="step-icon" aria-hidden="true">✅</div>
         <h3 class="step-title">Livraison</h3>
-        <p class="step-desc">Le destinataire signe le bon de livraison. Mission accomplie — votre véhicule est arrivé.</p>
+        <p class="step-desc">Le destinataire signe le bon de livraison. Vous réglez à ce moment-là : carte, Klarna en plusieurs fois, virement ou espèces.</p>
       </div>
     </div>
     <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
@@ -1441,7 +1447,7 @@
           Quel est le délai de prise en charge ?
           <div class="faq-arrow" aria-hidden="true">▾</div>
         </div>
-        <div class="faq-a">Le prix s'affiche immédiatement sur ce site. Une fois la réservation payée, la demande part aux transporteurs vérifiés compatibles, qui ont jusqu'à 48 h pour l'accepter. Si aucun ne se rend disponible, vous êtes remboursé intégralement sous 24 h. Pour une demande urgente, appelez-nous au <a href="tel:+33783278231" style="color:#f5620f">07 83 27 82 31</a>.</div>
+        <div class="faq-a">Le prix s'affiche immédiatement sur ce site. Dès la réservation (0 € prélevé), la demande part aux transporteurs vérifiés compatibles, qui ont jusqu'à 48 h pour l'accepter. Si aucun ne se rend disponible, rien n'est prélevé. Pour une demande urgente, appelez-nous au <a href="tel:+33783278231" style="color:#f5620f">07 83 27 82 31</a>.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">

@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 title: "Transport de véhicules : prix immédiat en ligne | SECOTO"
-description: "Voiture, moto, utilitaire, roulant ou non : votre prix de transport en 30 secondes, sans inscription. Transporteurs vérifiés partout en France."
+description: "Voiture, moto, utilitaire, roulant ou non : votre prix en 30 secondes, sans inscription. Vous ne payez qu’à l’arrivée. Transporteurs vérifiés en France."
 simulateur: true
 ---
 {%- set L = prix.libelles -%}
@@ -19,11 +19,12 @@ simulateur: true
         <span class="line-2">votre prix immédiat</span><br class="br-3">
         <span class="line-3">Auto · Moto · Utilitaire</span>
       </h1>
+      <p class="hero-zero"><strong>0&nbsp;€ à la réservation</strong> · vous ne payez qu’à l’arrivée du véhicule</p>
       <p class="hero-desc">Convoyage par chauffeur pour les véhicules roulants, transport sur plateau pour les motos, scooters et véhicules non roulants. SECOTO vous met en relation avec un transporteur professionnel indépendant et vérifié, qui exécute le transport, partout en France.</p>
       <div class="hero-trust" aria-label="Points clés">
         <div class="trust-item">✓ <span>Prix immédiat, sans inscription</span></div>
         <div class="trust-item">✓ <span>Roulant ou non roulant</span></div>
-        <div class="trust-item">✓ <span>Remboursé si aucun transporteur n’accepte</span></div>
+        <div class="trust-item">✓ <span>Paiement à l’arrivée : carte, Klarna, virement ou espèces</span></div>
       </div>
     </div>
     {% include "simulateur.njk" %}
@@ -86,7 +87,7 @@ simulateur: true
   <div class="why-grid">
     <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">01</span><span class="why-ico" aria-hidden="true">⚡</span><h3>Rapidité</h3><p>Votre prix s’affiche en 30 secondes. Dès la réservation, la demande part aux transporteurs vérifiés compatibles avec votre véhicule.</p></div>
     <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">02</span><span class="why-ico" aria-hidden="true">🛡️</span><h3>Transporteurs vérifiés</h3><p>Immatriculation, inscription au registre des transporteurs et assurance responsabilité civile et marchandises contrôlées. État des lieux photo au départ et à l’arrivée.</p></div>
-    <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">03</span><span class="why-ico" aria-hidden="true">🔒</span><h3>Paiement sécurisé</h3><p>Le paiement reste en réserve le temps qu’un transporteur accepte. Si aucun ne se rend disponible, vous êtes remboursé intégralement.</p></div>
+    <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">03</span><span class="why-ico" aria-hidden="true">🔒</span><h3>Paiement à l’arrivée</h3><p>0&nbsp;€ à la réservation : votre carte est seulement enregistrée, en garantie. Vous réglez à l’arrivée du véhicule, par carte, Klarna en plusieurs fois, virement ou espèces (jusqu’à 1&nbsp;000&nbsp;€).</p></div>
     <div class="why-card reveal"><span class="why-bg-num" aria-hidden="true">04</span><span class="why-ico" aria-hidden="true">💶</span><h3>Transparence</h3><p>Prix en ligne, sans inscription : convoyage à partir de {{ L.convoyageMin }}, plateau à partir de {{ L.plateauMin }}. Péages inclus, vous connaissez le prix avant de réserver.</p></div>
   </div>
   <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
@@ -96,7 +97,7 @@ simulateur: true
   <div class="s-head c reveal">
     <div class="stag">Tarification</div>
     <h2 id="tarifs-title" class="s-title">Des prix <span class="acc">clairs</span></h2>
-    <p class="s-desc">Un barème au kilomètre, le même pour tous. Le simulateur l’applique à votre trajet : vous connaissez le prix avant de créer un compte, et avant de payer.</p>
+    <p class="s-desc">Un barème au kilomètre, le même pour tous. Le simulateur l’applique à votre trajet : vous connaissez le prix avant de créer un compte, et vous ne payez qu’à l’arrivée du véhicule.</p>
   </div>
   <div class="tarifs-grid">
     <div class="tarif-card reveal">
@@ -162,7 +163,7 @@ simulateur: true
       <div class="step-num" aria-hidden="true">2</div>
       <div class="step-icon" aria-hidden="true">🤝</div>
       <h3 class="step-title">Réservation</h3>
-      <p class="step-desc">Votre nom et votre e-mail suffisent, puis vous payez dans l’application. Le paiement reste en réserve le temps qu’un transporteur vérifié accepte ; sinon, remboursement intégral.</p>
+      <p class="step-desc">Votre nom et votre e-mail suffisent. 0&nbsp;€ à la réservation : votre carte est seulement enregistrée, et la demande part aux transporteurs vérifiés.</p>
     </div>
     <div class="step-card reveal">
       <div class="step-num" aria-hidden="true">3</div>
@@ -174,7 +175,7 @@ simulateur: true
       <div class="step-num" aria-hidden="true">4</div>
       <div class="step-icon" aria-hidden="true">✅</div>
       <h3 class="step-title">Livraison</h3>
-      <p class="step-desc">Le destinataire contrôle le véhicule et signe le bon de livraison dans l’application.</p>
+      <p class="step-desc">Le destinataire contrôle le véhicule et signe le bon de livraison. Vous réglez à ce moment-là, avec le mode choisi.</p>
     </div>
   </div>
   <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>

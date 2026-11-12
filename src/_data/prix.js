@@ -45,6 +45,7 @@ export default {
     ecoDelai: jours(V.eco.delai_h),
     ecoCourt: euros(V.eco.prix_court_eur),
     ecoCourtKm: `${V.eco.court_max_km} km`,
+    ecoNonRoulantCourt: euros(V.eco.non_roulant_court_eur || 0),
     ecoFrance: euros(V.eco.prix_france_eur),
     ecoInternational: euros(V.eco.prix_international_eur),
     ecoDeuxPlaces: euros(ecoPlace2),

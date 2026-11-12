@@ -71,8 +71,9 @@
   }
 
   // Offre Éco (de ville à ville), ou null quand elle n'existe pas ou n'est pas moins chère.
+  // Non roulant : même prix sur trajet long, supplément sur trajet court.
   function offreEco(v3, gabarit, distance, roulant, a, b, standard) {
-    if (!roulant || !a || !b) return null;
+    if (!a || !b) return null;
     const depA = departement(a), depB = departement(b);
     if (depA === 'MC' || depB === 'MC') return null;
     if (gabarit === 'moto' && !couloirMoto(v3, depA, depB)) return null;
@@ -81,9 +82,9 @@
     const depot = villeEco(v3, a), retrait = villeEco(v3, b);
     if (!depot || !retrait || depot === retrait) return null;
     const e = v3.eco;
-    const prix = places === 1
-      ? (distance > 0 && distance <= e.court_max_km ? e.prix_court_eur : e.prix_france_eur)
-      : Math.round(places * e.prix_place_france_eur);
+    const court = distance > 0 && distance <= e.court_max_km;
+    const prix = (places === 1 ? (court ? e.prix_court_eur : e.prix_france_eur) : Math.round(places * e.prix_place_france_eur))
+      + (!roulant && court ? (e.non_roulant_court_eur || 0) : 0);
     if (standard != null && prix >= standard) return null;
     return { prix, depot, retrait, places };
   }

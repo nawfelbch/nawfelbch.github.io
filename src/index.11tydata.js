@@ -27,7 +27,7 @@ export default {
   schemaExtra: [
     service("Convoyage de véhicule par chauffeur", "Convoyage de véhicules", prix.bareme.convoyage.minimum,
       "Mise en relation avec un convoyeur professionnel indépendant et vérifié, qui conduit votre véhicule roulant jusqu’à destination."),
-    service("Transport de véhicule sur plateau", "Transport de véhicules sur plateau", prix.bareme.plateau.minimum,
-      "Mise en relation avec un transporteur professionnel indépendant et vérifié, qui charge votre voiture, moto, utilitaire ou véhicule non roulant sur plateau."),
+    service("Transport de véhicule sur plateau", "Transport de véhicules sur plateau", Math.min(...Object.values(prix.bareme.v3.minimums)),
+      "Mise en relation avec un transporteur professionnel indépendant et vérifié, qui charge votre voiture, moto, utilitaire, caravane, camping-car ou véhicule non roulant sur plateau."),
   ],
 };

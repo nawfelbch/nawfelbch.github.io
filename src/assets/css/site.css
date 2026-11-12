@@ -141,8 +141,11 @@ nav a:not(.btn-nav):hover::after{right:0;}
 .sim-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
 .sim-field{display:flex;flex-direction:column;gap:.35rem;min-width:0;}
 .sim-field label,.sim-seg legend{font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--txt2);}
-.sim-field input{width:100%;background:rgba(0,0,0,.2);border:1.5px solid var(--border2);border-radius:8px;padding:.8rem .9rem;font-family:var(--font-b);font-size:16px;color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s;}
-[data-theme="light"] .sim-field input{background:#fff;}
+.sim-field input,.sim-field select{width:100%;background:rgba(0,0,0,.2);border:1.5px solid var(--border2);border-radius:8px;padding:.8rem .9rem;font-family:var(--font-b);font-size:16px;color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s;}
+[data-theme="light"] .sim-field input,[data-theme="light"] .sim-field select{background:#fff;}
+.sim-field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:2.2rem;background-image:linear-gradient(45deg,transparent 50%,var(--txt2) 50%),linear-gradient(135deg,var(--txt2) 50%,transparent 50%);background-position:calc(100% - 1.1rem) 50%,calc(100% - .75rem) 50%;background-size:.35rem .35rem;background-repeat:no-repeat;}
+.sim-field select:focus{border-color:#f5620f;box-shadow:0 0 0 3px rgba(245,98,15,.18);}
+.sim-field option{color:#111;background:#fff;}
 .sim-field input::placeholder{color:var(--txt3);}
 .sim-field input:focus{border-color:#f5620f;box-shadow:0 0 0 3px rgba(245,98,15,.18);}
 .sim-field input[aria-invalid="true"]{border-color:#ef4444;}
@@ -164,6 +167,14 @@ nav a:not(.btn-nav):hover::after{right:0;}
 .sim-price-label{color:var(--txt3);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;}
 .sim-price{font-family:var(--font-h);font-size:3.2rem;line-height:1;color:#f5620f;}
 .sim-detail{color:var(--txt2);font-size:.86rem;line-height:1.5;}
+.sim-offres{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem;text-align:left;}
+.sim-offres li{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline;padding:.5rem .7rem;border-radius:8px;border:1px solid var(--border2);font-size:.82rem;color:var(--txt2);line-height:1.35;}
+.sim-offres li strong{color:var(--txt);font-size:.95rem;white-space:nowrap;}
+.sim-offres li small{display:block;color:var(--txt3);font-size:.74rem;}
+.offres-head{margin-top:3rem;}
+.offres-titre{font-family:var(--font-h);font-size:clamp(1.6rem,3.5vw,2.2rem);letter-spacing:.02em;}
+.offres-titre .acc{color:#f5620f;}
+.offres-note{max-width:60rem;margin:1.2rem auto 0;text-align:center;}
 .sim-alt{color:var(--txt3);font-size:.8rem;line-height:1.45;}
 .sim-next{color:var(--txt2);font-size:.78rem;}
 .sim-legal{color:var(--txt3);font-size:.7rem;line-height:1.5;}

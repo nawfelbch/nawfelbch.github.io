@@ -97,7 +97,7 @@ simulateur: true
   <div class="s-head c reveal">
     <div class="stag">Tarification</div>
     <h2 id="tarifs-title" class="s-title">Des prix <span class="acc">clairs</span></h2>
-    <p class="s-desc">Un barème au kilomètre, le même pour tous. Le simulateur l’applique à votre trajet : vous connaissez le prix avant de créer un compte, et vous ne payez qu’à l’arrivée du véhicule.</p>
+    <p class="s-desc">Un barème par type de véhicule, le même pour tous. Le simulateur l’applique à votre trajet : vous connaissez le prix avant de créer un compte, et vous ne payez qu’à l’arrivée du véhicule.</p>
   </div>
   <div class="tarifs-grid">
     <div class="tarif-card reveal">
@@ -117,16 +117,18 @@ simulateur: true
       <div class="feat-badge">LE PLUS DEMANDÉ</div>
       <span class="tarif-ico" aria-hidden="true">🏍️</span>
       <h3>Transport sur plateau</h3>
-      <div class="tarif-price"><small>dès </small>{{ L.plateauMotoKm | replace(",00 €", "€") }}<small>/km</small></div>
-      <div class="tarif-unit">Moto, scooter, voiture, utilitaire, caravane — roulant ou non</div>
+      <div class="tarif-price"><small>dès </small>{{ L.plateauMin | replace(" €", "€") }}</div>
+      <div class="tarif-unit">Voiture, moto, utilitaire, caravane, camping-car — roulant ou non</div>
       <ul class="tarif-feats">
-        <li>Moto : {{ L.plateauMotoKm }}/km{% if L.plafondMoto %}, jamais plus de {{ L.plafondMoto }}{% endif %}</li>
-        <li>Voiture : {{ L.plateauVoitureKm }}/km</li>
-        <li>Utilitaire, camionnette, caravane : {{ L.plateauUtilitaireKm }}/km</li>
-        <li>Non roulant : + {{ L.nonRoulant }}</li>
+        <li>Citadine : dès {{ L.citadineMin }}</li>
+        <li>Berline, SUV compact : dès {{ L.berlineMin }}</li>
+        <li>4x4, grand SUV, monospace : dès {{ L.grandMin }}</li>
+        <li>Moto, scooter : dès {{ L.motoMin }}, jamais plus de {{ L.plafondMoto }} entre l’Île-de-France et les Bouches-du-Rhône, le Var ou les Alpes-Maritimes</li>
+        <li>Utilitaire, caravane, camping-car : dès {{ L.utilitaireMin }}</li>
+        <li>Non roulant : supplément inclus dans le prix affiché</li>
         <li>Chargement, sanglage et péages inclus</li>
       </ul>
-      <p class="tarif-note">Minimum <strong>{{ L.plateauMin }}</strong> · prix affiché immédiatement</p>
+      <p class="tarif-note">Prix selon la distance et le trajet · affiché immédiatement</p>
     </div>
     <div class="tarif-card reveal">
       <span class="tarif-ico" aria-hidden="true">🏢</span>
@@ -141,6 +143,45 @@ simulateur: true
       </ul>
     </div>
   </div>
+  <div class="s-head c reveal offres-head">
+    <h3 class="offres-titre">Transport sur plateau : <span class="acc">trois offres</span></h3>
+    <p class="s-desc">Pour chaque trajet, l’application vous propose l’offre qui correspond à votre délai.</p>
+  </div>
+  <div class="tarifs-grid offres-grid">
+    <div class="tarif-card reveal">
+      <span class="tarif-ico" aria-hidden="true">⚡</span>
+      <h3>Express</h3>
+      <div class="tarif-price tarif-price-texte">{{ L.expressDelai }}</div>
+      <div class="tarif-unit">prise en charge sous {{ L.expressDelai }} · Standard + {{ L.expressPct }}</div>
+      <ul class="tarif-feats">
+        <li>Départ dans moins de {{ L.expressDelai }} : seule offre possible</li>
+        <li>Transport porte à porte</li>
+      </ul>
+    </div>
+    <div class="tarif-card feat reveal">
+      <span class="tarif-ico" aria-hidden="true">🚚</span>
+      <h3>Standard</h3>
+      <div class="tarif-price tarif-price-texte">{{ L.standardDelai }}</div>
+      <div class="tarif-unit">prise en charge sous {{ L.standardDelai }} · prix du simulateur</div>
+      <ul class="tarif-feats">
+        <li>Transport porte à porte</li>
+        <li>Le meilleur équilibre prix et délai</li>
+      </ul>
+    </div>
+    <div class="tarif-card reveal">
+      <span class="tarif-ico" aria-hidden="true">🌱</span>
+      <h3>Éco</h3>
+      <div class="tarif-price"><small>dès </small>{{ L.ecoCourt | replace(" €", "€") }}</div>
+      <div class="tarif-unit">de ville à ville · prise en charge sous {{ L.ecoDelai }}</div>
+      <ul class="tarif-feats">
+        <li>{{ L.ecoCourt }} jusqu’à {{ L.ecoCourtKm }}, {{ L.ecoFrance }} partout en France, {{ L.ecoInternational }} entre la France et l’étranger</li>
+        <li>Vous déposez et récupérez le véhicule dans la grande ville la plus proche : {{ L.ecoVilles }}</li>
+        <li>Véhicule roulant ; 4x4, utilitaire, caravane ou camping-car : prix selon la place occupée sur le porte-voitures</li>
+        <li>Proposée quand elle est moins chère que Standard</li>
+      </ul>
+    </div>
+  </div>
+  <p class="tarif-note offres-note">Caravane et camping-car : poids et longueur demandés à la réservation, + {{ L.caravanePoidsPct }} au-delà de {{ L.caravanePoids }}, + {{ L.caravaneLongueurPct }} au-delà de {{ L.caravaneLongueur }}, sur devis au-delà de {{ L.caravanePoidsMax }}. Bus, camion et poids lourd : sur devis.</p>
   <div class="sec-cta"><a href="#simulateur" class="btn js-main-cta">Voir mon prix en 30 secondes</a></div>
 </section>
 

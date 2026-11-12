@@ -15,11 +15,19 @@ export default [
   },
   {
     q: "Mon véhicule ne roule pas : peut-il être transporté ?",
-    r: `Oui. Véhicule en panne, accidenté, sans batterie, sans contrôle technique ou non assuré : le transport se fait sur plateau, avec un supplément de ${L.nonRoulant}. Indiquez « non roulant » dans le simulateur, puis précisez dans l’application si le véhicule peut être poussé ou s’il faut un treuil.`,
+    r: `Oui. Véhicule en panne, accidenté, sans batterie, sans contrôle technique ou non assuré : le transport se fait sur plateau, avec un supplément selon le type de véhicule, déjà inclus dans le prix affiché. Indiquez « non roulant » dans le simulateur, puis précisez dans l’application si le véhicule peut être poussé ou s’il faut un treuil.`,
   },
   {
     q: "Quels sont les tarifs ?",
-    r: `Convoyage par chauffeur : ${L.convoyageKm}/km, à partir de ${L.convoyageMin}, carburant et péages inclus. Transport sur plateau : voiture ${L.plateauVoitureKm}/km, utilitaire et caravane ${L.plateauUtilitaireKm}/km, moto ${L.plateauMotoKm}/km${L.plafondMoto ? ` plafonné à ${L.plafondMoto}` : ""}, minimum ${L.plateauMin}, supplément de ${L.nonRoulant} pour un véhicule non roulant. Le simulateur affiche votre prix immédiatement, sans inscription.`,
+    r: `Convoyage par chauffeur : ${L.convoyageKm}/km, à partir de ${L.convoyageMin}, carburant et péages inclus. Transport sur plateau, selon le type de véhicule et la distance : citadine dès ${L.citadineMin}, berline ou SUV compact dès ${L.berlineMin}, 4x4 ou grand SUV dès ${L.grandMin}, moto dès ${L.motoMin} (jamais plus de ${L.plafondMoto} entre l’Île-de-France et les Bouches-du-Rhône, le Var ou les Alpes-Maritimes), utilitaire, caravane ou camping-car dès ${L.utilitaireMin}. Trois offres : Express sous ${L.expressDelai} (+ ${L.expressPct}, obligatoire pour un départ dans moins de ${L.expressDelai}), Standard sous ${L.standardDelai}, et Éco de ville à ville sous ${L.ecoDelai} : ${L.ecoCourt} jusqu’à ${L.ecoCourtKm}, ${L.ecoFrance} en France, ${L.ecoInternational} entre la France et l’étranger. Le simulateur affiche votre prix immédiatement, sans inscription.`,
+  },
+  {
+    q: "Comment fonctionne l’offre Éco ?",
+    r: `Vous déposez votre véhicule dans la grande ville la plus proche du départ et le récupérez dans celle la plus proche de l’arrivée (${L.ecoVilles}), sous ${L.ecoDelai}. Le prix est fixe : ${L.ecoCourt} jusqu’à ${L.ecoCourtKm}, ${L.ecoFrance} partout en France, ${L.ecoInternational} entre la France et l’étranger, pour une citadine, une berline ou une moto. Un 4x4, un utilitaire, une caravane ou un camping-car occupe plus de place sur le porte-voitures : le prix en tient compte. L’offre est proposée pour un véhicule roulant, quand elle est moins chère que Standard.`,
+  },
+  {
+    q: "Caravane, camping-car : comment est calculé le prix ?",
+    r: `Dès ${L.caravaneMin}, selon la distance. Le poids et la longueur sont demandés à la réservation : + ${L.caravanePoidsPct} au-delà de ${L.caravanePoids}, + ${L.caravaneLongueurPct} au-delà de ${L.caravaneLongueur}. Au-delà de ${L.caravanePoidsMax}, ainsi que pour un bus, un camion ou un poids lourd, le prix est établi sur devis.`,
   },
   {
     q: "Quelles zones sont couvertes ?",

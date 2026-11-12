@@ -37,11 +37,13 @@
       <div class="rappel-tarifs">
         <div class="rappel-titre">Rappel tarifs</div>
         <div class="rappel-ligne"><span>Convoyage par chauffeur</span><strong>{{ L.convoyageKm }}/km</strong></div>
-        <div class="rappel-ligne"><span>Plateau moto{% if L.plafondMoto %} (max. {{ L.plafondMoto }}){% endif %}</span><strong>{{ L.plateauMotoKm }}/km</strong></div>
-        <div class="rappel-ligne"><span>Plateau voiture</span><strong>{{ L.plateauVoitureKm }}/km</strong></div>
-        <div class="rappel-ligne"><span>Plateau utilitaire, caravane</span><strong>{{ L.plateauUtilitaireKm }}/km</strong></div>
-        <div class="rappel-ligne"><span>Non roulant</span><strong>+ {{ L.nonRoulant }}</strong></div>
-        <div class="rappel-ligne"><span>Minimum plateau</span><strong>{{ L.plateauMin }}</strong></div>
+        <div class="rappel-ligne"><span>Plateau citadine</span><strong>dès {{ L.citadineMin }}</strong></div>
+        <div class="rappel-ligne"><span>Plateau berline, SUV compact</span><strong>dès {{ L.berlineMin }}</strong></div>
+        <div class="rappel-ligne"><span>Plateau 4x4, grand SUV</span><strong>dès {{ L.grandMin }}</strong></div>
+        <div class="rappel-ligne"><span>Plateau moto, scooter</span><strong>dès {{ L.motoMin }}</strong></div>
+        <div class="rappel-ligne"><span>Utilitaire, caravane, camping-car</span><strong>dès {{ L.utilitaireMin }}</strong></div>
+        <div class="rappel-ligne"><span>Éco, de ville à ville</span><strong>dès {{ L.ecoCourt }}</strong></div>
+        <div class="rappel-ligne"><span>Express sous {{ L.expressDelai }}</span><strong>+ {{ L.expressPct }}</strong></div>
       </div>
     </div>
 

@@ -7,7 +7,7 @@ const L = prix.libelles;
 export default [
   {
     q: "Quand est-ce que je paie ?",
-    r: "Seulement à l’arrivée du véhicule. À la réservation, 0 € est prélevé : votre carte bancaire est seulement enregistrée, en garantie. Une fois le véhicule livré, vous réglez au choix par carte, en plusieurs fois avec Klarna (sous réserve d’acceptation), par virement ou en espèces au transporteur (jusqu’à 1 000 €).",
+    r: "Seulement à l’arrivée du véhicule. À la réservation, 0 € est prélevé : votre carte bancaire est seulement enregistrée, en garantie. Une fois le véhicule livré, vous réglez au choix par carte, avec Klarna, par virement ou en espèces au transporteur (jusqu’à 1 000 €).",
   },
   {
     q: "Quelle différence entre convoyage et transport sur plateau ?",

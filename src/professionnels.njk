@@ -1,0 +1,171 @@
+---
+layout: base.njk
+permalink: /professionnels/
+title: "Transport de véhicules pour professionnels | SECOTO"
+description: "Navette Pro : prix fixe par voiture entre Paris, Lyon, la Côte d’Azur, la Belgique et l’Allemagne. Porte à porte, compte pro immédiat."
+simulateur: true
+simulateurPro: true
+slugUtm: "professionnels"
+fil:
+  - nom: "Professionnels"
+    url: "/professionnels/"
+---
+{%- set N = navette -%}
+{%- set A1 = N.axes[0] if N.axes.length else null -%}
+{%- set A2 = N.axes[1] if N.axes.length > 1 else null -%}
+<section id="pro-hero" class="pro-hero" aria-labelledby="pro-title">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-pill"><span class="hero-pill-dot" aria-hidden="true"></span>Réservé aux professionnels</div>
+      <h1 id="pro-title" class="hero-title">
+        <span class="line-1">{{ N.libelle }}</span><br>
+        {%- if N.actif %}
+        <span class="line-2">dès {{ N.prixMin }} par voiture</span>
+        {%- else %}
+        <span class="line-2">votre tarif pro</span>
+        {%- endif %}
+      </h1>
+      <p class="hero-desc">Garages, concessions, marchands, loueurs : un <strong>prix fixe par voiture</strong> entre Paris, Lyon, la Côte d’Azur, la Belgique et l’Allemagne. Enlèvement à votre adresse, livraison à l’adresse de votre choix, par un transporteur validé par SECOTO.</p>
+      {%- if N.actif %}
+      <ul class="pro-atouts" aria-label="Vos avantages">
+        <li><strong>{{ N.france[0].economie if N.france.length else "" }}</strong> sur Paris → {{ N.france[0].vers if N.france.length else "" }} par rapport au prix public Standard</li>
+        <li><strong>{{ A1.voiture_1 }} €</strong> la voiture, <strong>{{ A1.voiture_par_vehicule_2_plus }} €</strong> chacune à partir de 2</li>
+        <li><strong>Compte pro immédiat</strong> : vos tarifs dès l’inscription, sans engagement</li>
+      </ul>
+      {%- endif %}
+      <div class="hero-cta">
+        <a href="#sim-pro" class="btn">Voir mon tarif pro</a>
+        <a href="#exemples" class="btn btn-ghost">Voir les trajets et les prix</a>
+      </div>
+    </div>
+
+    <div class="hero-right" id="sim-pro">
+      <form class="sim" id="simpro" novalidate autocomplete="off" aria-labelledby="simpro-title">
+        <div class="sim-head">
+          <h2 class="sim-title" id="simpro-title">Votre tarif pro</h2>
+          <p class="sim-sub">Votre SIREN débloque le prix pro · il n’est ni envoyé ni enregistré</p>
+        </div>
+        <div class="sim-row">
+          <div class="sim-field">
+            <label for="simpro-from">Enlèvement</label>
+            <input type="text" id="simpro-from" list="simpro-villes" placeholder="Ville ou code postal" autocapitalize="words" spellcheck="false" enterkeyhint="next" aria-describedby="simpro-from-err" />
+            <p class="sim-err" id="simpro-from-err" role="alert"></p>
+          </div>
+          <div class="sim-field">
+            <label for="simpro-to">Livraison</label>
+            <input type="text" id="simpro-to" list="simpro-villes" placeholder="Ville ou code postal" autocapitalize="words" spellcheck="false" enterkeyhint="next" aria-describedby="simpro-to-err" />
+            <p class="sim-err" id="simpro-to-err" role="alert"></p>
+          </div>
+        </div>
+        <datalist id="simpro-villes"></datalist>
+        <div class="sim-row">
+          <div class="sim-field">
+            <label for="simpro-cat">Véhicule</label>
+            <select id="simpro-cat">
+              <option value="citadine">Citadine</option>
+              <option value="berline" selected>Berline, SUV compact</option>
+              <option value="grand">4x4, grand SUV, monospace</option>
+            </select>
+          </div>
+          <div class="sim-field">
+            <label for="simpro-n">Nombre de voitures</label>
+            <select id="simpro-n">
+              <option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+              <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+            </select>
+          </div>
+        </div>
+        <div class="sim-field">
+          <label for="simpro-siren">SIREN de votre entreprise</label>
+          <input type="text" id="simpro-siren" inputmode="numeric" maxlength="11" placeholder="9 chiffres, ex. 123 456 789" aria-describedby="simpro-siren-err" />
+          <p class="sim-err" id="simpro-siren-err" role="alert"></p>
+        </div>
+        <button type="submit" class="btn sim-go" id="simpro-go">Voir mon tarif pro</button>
+
+        <div class="sim-result" id="simpro-result" hidden aria-live="polite">
+          <div class="sim-price-label" id="simpro-label">{{ N.libelle }}</div>
+          <div class="sim-price" id="simpro-price">—</div>
+          <div class="sim-detail" id="simpro-detail"></div>
+          <a class="btn sim-book" id="simpro-book" href="{{ 'professionnels' | lienApp({ compte: 'pro', service: 'plateau' }) }}">Créer mon compte pro et réserver</a>
+          <p class="sim-next"><strong>Compte pro immédiat</strong> : votre tarif s’affiche dès l’inscription. Rien n’est débité à la réservation.</p>
+          <p class="sim-legal">Prix confirmé dans l’application selon les adresses exactes. TVA non applicable, article 293 B du CGI. {{ site.mentionRole }}</p>
+        </div>
+        <p class="sim-call">Pas de SIREN sous la main ? <a href="#exemples">Voir les exemples de trajets</a> · <a href="tel:{{ site.telephoneIntl }}">{{ site.telephone }}</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="exemples" aria-labelledby="exemples-title">
+  <div class="s-head c reveal">
+    <div class="stag">Exemples de trajets</div>
+    <h2 id="exemples-title" class="s-title">Vos prix <span class="acc">{{ N.libelle }}</span></h2>
+    <p class="s-desc">Prix total par voiture, porte à porte, prise en charge sous {{ N.delai }}. Citadine ou berline roulante{% if A1 %} ; 4x4 : {{ A1.grand_1 }} € ({{ A1.grand_par_vehicule_2_plus }} € chacun à partir de 2) sur l’axe {{ A1.nom }}{% endif %}.</p>
+  </div>
+  {%- if N.actif %}
+  <div class="pro-tables">
+    {%- if N.france.length %}
+    <div class="pro-table-bloc reveal">
+      <h3 class="pro-table-titre">{{ A1.nom }}</h3>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Trajet</th><th scope="col">1 voiture</th><th scope="col">Économie</th><th scope="col">Par voiture dès 2</th><th scope="col">Prix public Standard</th></tr></thead>
+          <tbody>
+            {%- for e in N.france %}
+            <tr><th scope="row">{{ e.de }} → {{ e.vers }}</th><td><strong>{{ e.un }}</strong></td><td class="pro-eco">{{ e.economie }}</td><td>{{ e.parVoiture }}</td><td><s>{{ e.standard }}</s></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {%- endif %}
+    {%- if N.international.length and A2 %}
+    <div class="pro-table-bloc reveal">
+      <h3 class="pro-table-titre">{{ A2.nom }}</h3>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Trajet</th><th scope="col">1 voiture</th><th scope="col">Par voiture dès 2</th></tr></thead>
+          <tbody>
+            {%- for e in N.international %}
+            <tr><th scope="row">{{ e.de }} → {{ e.vers }}</th><td><strong>{{ e.un }}</strong></td><td>{{ e.parVoiture }}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="tarif-note">Dans les deux sens. {% if A2 %}4x4 : {{ A2.grand_1 }} € ({{ A2.grand_par_vehicule_2_plus }} € chacun à partir de 2).{% endif %}</p>
+    </div>
+    {%- endif %}
+  </div>
+  <p class="tarif-note offres-note">Villes sur l’axe comprises (Dijon, Mâcon, Valence, Avignon, Lille, Amiens…). La {{ N.libelle }} est proposée quand elle est moins chère que le prix Standard. Hors de ces axes, votre compte pro affiche vos prix Standard et Express partout en France.</p>
+  {%- else %}
+  <p class="s-desc pro-bientot">Vos tarifs pro s’affichent dans l’application dès la création de votre compte professionnel.</p>
+  {%- endif %}
+  <div class="sec-cta"><a href="{{ 'professionnels' | lienApp({ compte: 'pro' }) }}" class="btn">Créer mon compte pro</a></div>
+</section>
+
+<section id="pro-inclus" aria-labelledby="inclus-title">
+  <div class="s-head c reveal">
+    <div class="stag">Inclus</div>
+    <h2 id="inclus-title" class="s-title">Pensé pour <span class="acc">les pros</span></h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><span class="why-ico" aria-hidden="true">🚚</span><h3>Porte à porte</h3><p>Enlèvement à votre adresse, livraison à l’adresse que vous choisissez : client, agence, concession.</p></div>
+    <div class="why-card reveal"><span class="why-ico" aria-hidden="true">💶</span><h3>Prix fixe par voiture</h3><p>Le même prix quelle que soit la ville de l’axe, et moins cher dès 2 voitures dans la même commande.</p></div>
+    <div class="why-card reveal"><span class="why-ico" aria-hidden="true">🛡️</span><h3>Transporteurs validés</h3><p>Transporteurs validés par SECOTO, état des lieux photo au départ et à l’arrivée, suivi dans l’application.</p></div>
+    <div class="why-card reveal"><span class="why-ico" aria-hidden="true">🧾</span><h3>Facture automatique</h3><p>Compte entreprise, plusieurs véhicules par commande, facture disponible dans l’application.</p></div>
+  </div>
+</section>
+
+<section id="pro-etapes" aria-labelledby="etapes-title">
+  <div class="s-head c reveal">
+    <div class="stag">Processus</div>
+    <h2 id="etapes-title" class="s-title">En <span class="acc">trois étapes</span></h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal"><div class="step-num" aria-hidden="true">1</div><h3 class="step-title">Compte pro</h3><p class="step-desc">Inscription en une minute, profil « Professionnel » : vos tarifs pro s’affichent immédiatement.</p></div>
+    <div class="step-card reveal"><div class="step-num" aria-hidden="true">2</div><h3 class="step-title">Commande</h3><p class="step-desc">Adresses d’enlèvement et de livraison, véhicules : choisissez la {{ N.libelle }}. Rien n’est débité à la réservation.</p></div>
+    <div class="step-card reveal"><div class="step-num" aria-hidden="true">3</div><h3 class="step-title">Livraison</h3><p class="step-desc">Prise en charge sous {{ N.delai }} par un transporteur validé par SECOTO, état des lieux photo, bon de livraison signé.</p></div>
+  </div>
+  <div class="sec-cta"><a href="{{ 'professionnels' | lienApp({ compte: 'pro' }) }}" class="btn">Créer mon compte pro</a></div>
+</section>

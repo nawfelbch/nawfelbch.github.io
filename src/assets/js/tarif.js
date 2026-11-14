@@ -95,6 +95,32 @@
     return { prix, depot, retrait, places };
   }
 
-  const T = { VOITURES, estLourd, departement, casTrajet, couloirMoto, lireTable, prixStandard, prixExpress, placesEco, villeEco, offreEco };
+  // 146 : Navette Pro (comptes pros) — même règle que l'app (offre_navette_pro).
+  // lieu = { d: département français ou 'MC', pays: 'FR' | 'BE' | 'DE' | … }.
+  function surAxe(lieu, axe, cote) {
+    const pays = lieu.pays || (lieu.d === 'MC' ? 'MC' : 'FR');
+    if (pays === 'FR') return (cote === 'france' || cote === 'fr') && (axe.departements || []).includes(String(lieu.d));
+    return (cote === 'france' || cote === 'etranger') && (axe.pays || []).includes(pays);
+  }
+  function axeNavette(v3, a, b, km) {
+    const n = v3.navette_pro;
+    if (!n || !n.actif || !a || !b) return null;
+    for (const axe of n.axes || []) {
+      if (km < (axe.km_min || 0) || km > (axe.km_max || 1e9)) continue;
+      const ok = axe.type === 'international'
+        ? (surAxe(a, axe, 'fr') && surAxe(b, axe, 'etranger')) || (surAxe(b, axe, 'fr') && surAxe(a, axe, 'etranger'))
+        : surAxe(a, axe, 'france') && surAxe(b, axe, 'france');
+      if (ok) return axe;
+    }
+    return null;
+  }
+  // Prix client total : 1 voiture, ou n voitures au prix « par voiture à partir de 2 ».
+  function prixNavette(axe, gabarit, n) {
+    const grand = gabarit === 'grand';
+    const nb = Math.max(1, Math.round(n || 1));
+    return nb === 1 ? (grand ? axe.grand_1 : axe.voiture_1) : nb * (grand ? axe.grand_par_vehicule_2_plus : axe.voiture_par_vehicule_2_plus);
+  }
+
+  const T = { VOITURES, estLourd, departement, casTrajet, couloirMoto, lireTable, prixStandard, prixExpress, placesEco, villeEco, offreEco, axeNavette, prixNavette };
   racine.SecotoTarif = T;
 })(typeof globalThis !== 'undefined' ? globalThis : window);

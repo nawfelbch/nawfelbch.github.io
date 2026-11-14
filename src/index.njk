@@ -11,6 +11,10 @@ simulateur: true
   <div class="orb orb-2" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-left">
+      <div class="audience" role="group" aria-label="Vous êtes">
+        <span class="audience-opt is-on" aria-current="true">Particulier</span>
+        <a class="audience-opt audience-pro" href="/professionnels/">Professionnel <span class="audience-tag">Tarif dédié</span><span aria-hidden="true"> →</span></a>
+      </div>
       <div class="hero-pill" aria-hidden="true">
         <span class="hero-pill-dot"></span>Transport de véhicules · Roulants &amp; non roulants · France
       </div>
@@ -68,7 +72,8 @@ simulateur: true
     <article class="tilt-card reveal">
       <div class="card-ico" aria-hidden="true">🏢</div>
       <h3>Professionnels et flottes</h3>
-      <p>Garages, concessions, marchands, loueurs et sociétés de VTC : compte entreprise, plusieurs véhicules par demande, facture automatique et devis payable en un clic.</p>
+      <p>Garages, concessions, marchands, loueurs et sociétés de VTC : tarif Navette Pro dédié, prix fixe par voiture, porte à porte, plusieurs véhicules par commande et facture automatique.</p>
+      <p><a class="lien-pro" href="/professionnels/">Découvrir la Navette Pro →</a></p>
       <div class="chip-row" aria-label="Points forts">
         <span class="chip">Compte entreprise</span><span class="chip">Plusieurs véhicules</span>
         <span class="chip">Facture automatique</span><span class="chip">Devis en un clic</span>
@@ -130,17 +135,19 @@ simulateur: true
       </ul>
       <p class="tarif-note">Prix selon la distance et le trajet · affiché immédiatement</p>
     </div>
-    <div class="tarif-card reveal">
+    <div class="tarif-card tarif-pro reveal">
+      <div class="feat-badge">PROFESSIONNELS</div>
       <span class="tarif-ico" aria-hidden="true">🏢</span>
-      <h3>Professionnels</h3>
-      <div class="tarif-price tarif-price-texte">Sur devis</div>
+      <h3>{{ navette.libelle }}</h3>
+      <div class="tarif-price tarif-price-texte">Tarif dédié</div>
       <div class="tarif-unit">garages, concessions, marchands, loueurs, VTC</div>
       <ul class="tarif-feats">
-        <li>Compte entreprise</li>
-        <li>Plusieurs véhicules par demande</li>
+        <li>Prix fixe par voiture sur nos axes</li>
+        <li>Porte à porte, plusieurs véhicules</li>
+        <li>Compte pro immédiat</li>
         <li>Facture automatique</li>
-        <li>Devis payable en un clic</li>
       </ul>
+      <a class="btn" href="/professionnels/">Voir l’offre pro</a>
     </div>
   </div>
   <div class="s-head c reveal offres-head">

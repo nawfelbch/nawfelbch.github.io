@@ -3,6 +3,7 @@
     <img src="/assets/img/logo-96.webp" alt="SECOTO" width="38" height="38" fetchpriority="high">
   </a>
   <nav id="nav" aria-label="Navigation principale">
+    <a href="/professionnels/" class="nav-pro">Professionnels <span class="nav-pro-tag">Tarif dédié</span></a>
     <a href="/#services">Services</a>
     <a href="/#tarifs">Tarifs</a>
     <a href="/#comment">Comment ça marche</a>
@@ -14,7 +15,7 @@
       <span class="t-light" aria-hidden="true">☀️</span>
     </button>
     <a href="tel:{{ site.telephoneIntl }}" class="cta-tel hdr-tel" aria-label="Appeler SECOTO au {{ site.telephone }}">{{ site.telephone }}</a>
-    <a href="{{ '/#simulateur' if not simulateur else '#simulateur' }}" class="btn-nav js-main-cta" id="hdr-cta">Voir mon prix en 30 secondes</a>
+    {%- if simulateurPro %}<a href="#sim-pro" class="btn-nav js-main-cta" id="hdr-cta">Voir mon tarif pro</a>{%- else %}<a href="{{ '/#simulateur' if not simulateur else '#simulateur' }}" class="btn-nav js-main-cta" id="hdr-cta">Voir mon prix en 30 secondes</a>{%- endif %}
   </nav>
   <button type="button" class="hamburger" id="hbg" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
     <span></span><span></span><span></span>

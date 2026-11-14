@@ -69,6 +69,9 @@
   <script id="secoto-bareme" type="application/json">{{ prix.bareme | json | safe }}</script>
   <script src="/assets/js/tarif.js?v={{ build.version }}" defer></script>
   <script src="/assets/js/simulateur.js?v={{ build.version }}" defer></script>
+  {%- if simulateurPro %}
+  <script src="/assets/js/pro.js?v={{ build.version }}" defer></script>
+  {%- endif %}
   {%- endif %}
 </body>
 </html>

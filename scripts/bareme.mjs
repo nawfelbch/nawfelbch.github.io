@@ -39,6 +39,19 @@ export function verifierBaremeV3(v) {
   return v;
 }
 
+// 146 : Navette Pro (prix client des comptes pros). Absente tant que la
+// migration 146 n'est pas collée : la page Professionnels l'indique alors sans
+// prix. Présente mais incomplète : construction arrêtée (jamais de prix deviné).
+export function verifierNavette(v) {
+  const n = v.navette_pro;
+  if (n === undefined || n === null) return v;
+  const ok = typeof n.actif === "boolean" && nombre(n.fenetre_h) && Array.isArray(n.axes)
+    && n.axes.every((a) => a.nom && ["france", "international"].includes(a.type) && Array.isArray(a.departements) && Array.isArray(a.pays)
+      && ["voiture_1", "voiture_par_vehicule_2_plus", "grand_1", "grand_par_vehicule_2_plus", "km_max"].every((k) => nombre(a[k])));
+  if (!ok) throw new Error("Navette Pro reçue incomplète : construction arrêtée.");
+  return v;
+}
+
 async function lire(rpc) {
   const r = await fetch(`${URL_SUPABASE}/rest/v1/rpc/${rpc}`, {
     method: "POST",
@@ -53,6 +66,7 @@ async function principal() {
   const [ancien, v3] = await Promise.all([lire("secoto_bareme_public"), lire("secoto_bareme_v3_public")]);
   verifierBareme(ancien);
   verifierBaremeV3(v3);
+  verifierNavette(v3);
   const bareme = { convoyage: ancien.convoyage, versions: { convoyage: ancien.versions?.convoyage }, v3, lu_le: new Date().toISOString() };
   await writeFile(new URL("../src/_data/bareme.json", import.meta.url), `${JSON.stringify(bareme)}\n`);
   console.log(`Barème lu : convoyage v${ancien.versions?.convoyage}, plateau v3 (calculé le ${v3.calcule_le || "?"})`);

@@ -1,7 +1,7 @@
 // 146 : simulateur Navette Pro (page Professionnels). Même règle que l'app :
 // prix pro = prix par voiture de l'axe ; proposé seulement si moins cher que
-// le Standard. Le SIREN débloque l'affichage du prix : il est vérifié dans le
-// navigateur (9 chiffres, clé de Luhn) et n'est ni envoyé ni enregistré.
+// le Standard. Le SIREN (9 chiffres) débloque l'affichage du prix ; il n'est
+// ni envoyé ni enregistré.
 (() => {
   'use strict';
   const B = (() => { try { return JSON.parse(document.getElementById('secoto-bareme').textContent); } catch (e) { return null; } })();
@@ -35,14 +35,10 @@
     dl.replaceChildren(frag);
   });
 
-  // SIREN : 9 chiffres, clé de Luhn (La Poste, 356 000 000, fait exception).
+  // SIREN : 9 chiffres (espaces, points ou tirets acceptés). Aucun autre
+  // contrôle : l'inscription pro donne un accès immédiat.
   function sirenValide(v) {
-    const s = String(v || '').replace(/\s/g, '');
-    if (!/^\d{9}$/.test(s)) return false;
-    if (s === '356000000') return true;
-    let t = 0;
-    for (let i = 0; i < 9; i++) { let d = +s[8 - i]; if (i % 2) { d *= 2; if (d > 9) d -= 9; } t += d; }
-    return t % 10 === 0;
+    return /^\d{9}$/.test(String(v || '').replace(/[\s.-]/g, ''));
   }
 
   async function lieu(champ) {
@@ -69,7 +65,8 @@
     ['simpro-from', 'simpro-to', 'simpro-siren'].forEach(id => setErr(id, ''));
     if (!sirenValide($('simpro-siren').value)) {
       res.hidden = true;
-      setErr('simpro-siren', 'Entrez le SIREN de votre entreprise (9 chiffres) pour voir votre tarif pro. Sinon, consultez les exemples de trajets plus bas.');
+      const chiffres = $('simpro-siren').value.replace(/\D/g, '');
+      setErr('simpro-siren', 'Entrez les 9 chiffres du SIREN de votre entreprise (vous en avez saisi ' + chiffres.length + '). Sinon, consultez les exemples de trajets plus bas.');
       $('simpro-siren').focus();
       return;
     }

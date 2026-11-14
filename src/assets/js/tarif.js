@@ -49,7 +49,12 @@
     return p;
   }
 
-  function prixExpress(v3, standard) { return Math.round(standard * v3.express.coef); }
+  // 144 : utilitaire, caravane, camping-car — barème « véhicules lourds » (Express × 1,2, pas d'Éco).
+  function estLourd(v3, gabarit) { return Boolean(v3.lourds && (v3.lourds.gabarits || []).includes(gabarit)); }
+  function prixExpress(v3, standard, gabarit) {
+    const coef = estLourd(v3, gabarit) ? v3.lourds.express_coef : v3.express.coef;
+    return Math.round(standard * coef);
+  }
 
   // Places occupées sur le porte-voitures (dimensions inconnues : cas le plus prudent).
   function placesEco(v3, gabarit) {
@@ -77,6 +82,7 @@
     const depA = departement(a), depB = departement(b);
     if (depA === 'MC' || depB === 'MC') return null;
     if (gabarit === 'moto' && !couloirMoto(v3, depA, depB)) return null;
+    if (estLourd(v3, gabarit) && !v3.lourds.eco) return null;
     const places = placesEco(v3, gabarit);
     if (!places) return null;
     const depot = villeEco(v3, a), retrait = villeEco(v3, b);
@@ -89,6 +95,6 @@
     return { prix, depot, retrait, places };
   }
 
-  const T = { VOITURES, departement, casTrajet, couloirMoto, lireTable, prixStandard, prixExpress, placesEco, villeEco, offreEco };
+  const T = { VOITURES, estLourd, departement, casTrajet, couloirMoto, lireTable, prixStandard, prixExpress, placesEco, villeEco, offreEco };
   racine.SecotoTarif = T;
 })(typeof globalThis !== 'undefined' ? globalThis : window);

@@ -7,7 +7,7 @@ export default {
   telephone: "07 83 27 82 31",
   telephoneIntl: "+33783278231",
   email: "contact.secoto@gmail.com",
-  adresse: { rue: "70 Avenue du Maréchal Foch", codePostal: "92260", ville: "Fontenay-aux-Roses", pays: "FR" },
+  adresse: { rue: "39 avenue Léon Gambetta", codePostal: "92120", ville: "Montrouge", pays: "FR" },
   // Profils officiels (sameAs) : à compléter avec les vraies adresses.
   profils: [],
   verification: {

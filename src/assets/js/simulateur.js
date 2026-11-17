@@ -292,7 +292,8 @@
         li.append(g, p); offres.appendChild(li);
       };
       ligne('Express', 'prise en charge sous ' + V3.express.delai_h + ' h, obligatoire pour un départ dans moins de ' + V3.express.delai_h + ' h', T.prixExpress(V3, price, cat, km));
-      const eco = T.offreEco(V3, cat, km, rolling, a, b, price);
+      // 150 : Éco en groupage seulement — proposée dans l'app, pas au simulateur.
+      const eco = V3.eco.sur_groupage ? null : T.offreEco(V3, cat, km, rolling, a, b, price);
       if (eco) ligne('Éco', 'de ville à ville : dépôt à ' + eco.depot + ', retrait à ' + eco.retrait + ', sous ' + Math.round(V3.eco.delai_h / 24) + ' jours', eco.prix);
       offres.hidden = false;
     } else offres.hidden = true;

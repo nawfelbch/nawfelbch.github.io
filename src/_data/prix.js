@@ -48,6 +48,10 @@ export default {
     expressDelai: `${V.express.delai_h} h`,
     standardDelai: jours(V.standard.delai_h),
     ecoDelai: jours(V.eco.delai_h),
+    // 150 : l'Éco n'est plus proposée qu'en groupage (plusieurs véhicules, ou même axe à dates proches).
+    ecoQuand: V.eco.sur_groupage
+      ? "Proposée pour plusieurs véhicules, ou quand d’autres véhicules partent déjà sur le même axe à des dates proches (groupage), si elle est moins chère que Standard"
+      : "Proposée quand elle est moins chère que Standard",
     ecoCourt: euros(V.eco.prix_court_eur),
     ecoCourtKm: `${V.eco.court_max_km} km`,
     ecoNonRoulantCourt: euros(V.eco.non_roulant_court_eur || 0),

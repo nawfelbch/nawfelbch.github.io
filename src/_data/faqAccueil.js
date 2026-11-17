@@ -23,7 +23,7 @@ export default [
   },
   {
     q: "Comment fonctionne l’offre Éco ?",
-    r: `Vous déposez votre véhicule dans la grande ville la plus proche du départ et le récupérez dans celle la plus proche de l’arrivée (${L.ecoVilles}), sous ${L.ecoDelai}. Le prix est fixe : ${L.ecoCourt} jusqu’à ${L.ecoCourtKm}, ${L.ecoFrance} partout en France, ${L.ecoInternational} entre la France et l’étranger, pour une citadine, une berline ou une moto. Un 4x4 occupe plus de place sur le porte-voitures : le prix en tient compte. L’Éco n’est pas proposé pour les utilitaires, caravanes et camping-cars. Véhicule non roulant : même prix au-delà de ${L.ecoCourtKm}, + ${L.ecoNonRoulantCourt} jusqu’à ${L.ecoCourtKm}. L’offre est proposée quand elle est moins chère que Standard.`,
+    r: `Vous déposez votre véhicule dans la grande ville la plus proche du départ et le récupérez dans celle la plus proche de l’arrivée (${L.ecoVilles}), sous ${L.ecoDelai}. Le prix est fixe : ${L.ecoCourt} jusqu’à ${L.ecoCourtKm}, ${L.ecoFrance} partout en France, ${L.ecoInternational} entre la France et l’étranger, pour une citadine, une berline ou une moto. Un 4x4 occupe plus de place sur le porte-voitures : le prix en tient compte. L’Éco n’est pas proposé pour les utilitaires, caravanes et camping-cars. Véhicule non roulant : même prix au-delà de ${L.ecoCourtKm}, + ${L.ecoNonRoulantCourt} jusqu’à ${L.ecoCourtKm}. ${L.ecoQuand}.`,
   },
   {
     q: "Caravane, camping-car : comment est calculé le prix ?",

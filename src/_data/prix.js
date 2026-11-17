@@ -41,7 +41,10 @@ export default {
     caravaneMin: euros(Math.min(...V.prix.caravane.normal, ...V.prix.camping_car.normal)),
     plafondMoto: euros(V.moto_couloir.plafond_eur),
     expressPct: `${Math.round((V.express.coef - 1) * 100)} %`,
-    expressPctLourds: `${Math.round(((V.lourds?.express_coef ?? V.express.coef) - 1) * 100)} %`,
+    // 149 : Express des lourds au km (au moins Standard + 10 %) ; avant la 149 : + X %.
+    expressLourds: V.lourds?.express_eur_km
+      ? `${euros(V.lourds.express_eur_km, 2)}/km, au moins + ${Math.round(((V.lourds.express_min_coef || 1.1) - 1) * 100)} %`
+      : `+ ${Math.round(((V.lourds?.express_coef ?? V.express.coef) - 1) * 100)} %`,
     expressDelai: `${V.express.delai_h} h`,
     standardDelai: jours(V.standard.delai_h),
     ecoDelai: jours(V.eco.delai_h),

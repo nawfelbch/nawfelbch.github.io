@@ -49,11 +49,17 @@
     return p;
   }
 
-  // 144 : utilitaire, caravane, camping-car — barème « véhicules lourds » (Express × 1,2, pas d'Éco).
+  // 144 / 149 : utilitaire, caravane, camping-car — barème « véhicules lourds » (pas d'Éco).
+  // Express des lourds (149) : au km (2,40 €/km), jamais moins que Standard + 10 %, arrondi aux 5 €.
   function estLourd(v3, gabarit) { return Boolean(v3.lourds && (v3.lourds.gabarits || []).includes(gabarit)); }
-  function prixExpress(v3, standard, gabarit) {
-    const coef = estLourd(v3, gabarit) ? v3.lourds.express_coef : v3.express.coef;
-    return Math.round(standard * coef);
+  const cinq = (n) => Math.ceil(Math.round(n * 100) / 100 / 5) * 5;  // arrondi au centime d abord (900 × 1,1)
+  function prixExpress(v3, standard, gabarit, km) {
+    if (estLourd(v3, gabarit)) {
+      const l = v3.lourds;
+      if (l.express_eur_km && km > 0) return Math.max(cinq(km * l.express_eur_km), cinq(standard * (l.express_min_coef || 1.1)));
+      return Math.round(standard * (l.express_coef || v3.express.coef));
+    }
+    return Math.round(standard * v3.express.coef);
   }
 
   // Places occupées sur le porte-voitures (dimensions inconnues : cas le plus prudent).

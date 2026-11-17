@@ -52,7 +52,7 @@
   // 144 / 149 : utilitaire, caravane, camping-car — barème « véhicules lourds » (pas d'Éco).
   // Express des lourds (149) : au km (2,40 €/km), jamais moins que Standard + 10 %, arrondi aux 5 €.
   function estLourd(v3, gabarit) { return Boolean(v3.lourds && (v3.lourds.gabarits || []).includes(gabarit)); }
-  const cinq = (n) => Math.ceil(n / 5) * 5;
+  const cinq = (n) => Math.ceil(Math.round(n * 100) / 100 / 5) * 5;  // arrondi au centime d abord (900 × 1,1)
   function prixExpress(v3, standard, gabarit, km) {
     if (estLourd(v3, gabarit)) {
       const l = v3.lourds;

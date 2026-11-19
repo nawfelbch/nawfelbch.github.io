@@ -9,8 +9,11 @@
   (() => {
     let jour = '';
     try { jour = new Intl.DateTimeFormat('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); } catch (e) { return; }
-    if (jour < '2026-12-01' || jour >= '2027-01-01') return;
-    document.querySelectorAll('#bandeau-noel, .logo-noel').forEach(el => { el.hidden = false; });
+    if (jour < '2026-11-27' || jour >= '2027-01-01') return;
+    const noel = jour >= '2026-12-01';   // Black Friday du 27 au 30/11, Noël ensuite
+    const b = document.getElementById('bandeau-noel');
+    if (b) { b.hidden = false; b.classList.toggle('is-noel', noel); }
+    if (noel) document.querySelectorAll('.logo-noel').forEach(el => { el.hidden = false; });
   })();
 
   /* ── Provenance de la visite, transmise à l'app (tableau Acquisition) ──

@@ -1,0 +1,70 @@
+---
+layout: base.njk
+permalink: /black-friday-noel/
+title: "Black Friday & Noël : −5 % transport de véhicule | SECOTO"
+description: "Du 27/11 au 31/12/2026 : jusqu’à −5 % (40 € max.) sur le transport de voiture, moto, utilitaire ou camping-car. Prix immédiat, sans code."
+slugUtm: "black-friday-noel"
+fil:
+  - nom: "Black Friday & Noël"
+    url: "/black-friday-noel/"
+faqPrefixe: "promo"
+faq:
+  - q: "Quelles sont les dates de l’offre ?"
+    r: "La remise s’applique à tout devis demandé dans l’application SECOTO du vendredi 27 novembre 2026 (Black Friday) au jeudi 31 décembre 2026 inclus, heure de Paris. Le prix affiché reste garanti jusqu’à la date indiquée sur votre devis, même s’il expire après le 31 décembre."
+  - q: "Combien vais-je économiser ?"
+    r: "Jusqu’à 5 % du prix de votre transport, dans la limite de 40 € par devis. La remise est calculée automatiquement et déjà incluse dans le prix affiché : vous voyez le prix normal du jour et le montant exact de la remise avant de réserver. Sur les plus petits trajets, la remise peut être réduite ou nulle."
+  - q: "Faut-il un code promo ?"
+    r: "Non. Aucun code à saisir : demandez votre prix dans l’application, la remise apparaît sous le prix de chaque offre concernée."
+  - q: "Quels transports sont concernés ?"
+    r: "Les offres de transport sur plateau proposées dans l’application (Express, Standard, Éco et Navette Pro) : voiture, moto, utilitaire, caravane ou camping-car, roulant ou non roulant, partout en France. Les devis personnalisés établis à la main ne sont pas concernés."
+  - q: "Le transporteur est-il moins bien payé ?"
+    r: "Non. La remise est prise sur la commission de SECOTO : la rémunération du transporteur validé par SECOTO qui réalise votre transport reste la même."
+  - q: "Quand suis-je débité ?"
+    r: "À la réservation, vous enregistrez simplement votre carte : rien n’est prélevé. Vous réglez à la livraison du véhicule, par carte ou par virement."
+---
+{%- set exemples = [
+  { trajet: "Paris → Lyon", vehicule: "Citadine", km: 465, gabarit: "citadine" },
+  { trajet: "Paris → Marseille", vehicule: "Berline", km: 775, gabarit: "berline" },
+  { trajet: "Lille → Rennes", vehicule: "SUV / grand véhicule", km: 580, gabarit: "grand" }
+] -%}
+<article class="page-texte promo-page">
+  <p class="promo-dates">Du 27 novembre au 31 décembre 2026</p>
+  <h1 class="page-titre">Black Friday &amp; Noël : jusqu’à −5 % sur le transport de votre véhicule</h1>
+  <p>Pour le <strong>Black Friday</strong> puis pour <strong>Noël</strong>, SECOTO baisse le prix de vos transports de véhicules sur plateau : <strong>jusqu’à −5 %, dans la limite de 40 €</strong>, sans code promo. La remise est déjà incluse dans le prix affiché dans l’application, avec le prix normal du jour indiqué à côté.</p>
+  <p><a class="btn-nav" href="{{ slugPage | lienApp }}">Voir mon prix remisé</a></p>
+
+  <h2>Exemples de prix</h2>
+  <p>Prix Standard indicatifs, véhicule roulant, avant les options éventuelles. Votre prix exact (adresses, dates, véhicule) est calculé en quelques secondes dans l’application.</p>
+  <div class="promo-table-wrap">
+    <table class="promo-table">
+      <thead><tr><th scope="col">Trajet</th><th scope="col">Véhicule</th><th scope="col">Prix normal</th><th scope="col">Remise</th><th scope="col">Prix remisé</th></tr></thead>
+      <tbody>
+      {%- for e in exemples %}
+        {%- set p = prix.prixPlateau(e.gabarit, e.km) %}
+        {%- set r5 = (p * 0.05) | round(0, "floor") %}
+        {%- set r = 40 if r5 > 40 else r5 %}
+        <tr><td>{{ e.trajet }}</td><td>{{ e.vehicule }}</td><td>{{ prix.euros(p) }}</td><td>−{{ prix.euros(r) }}</td><td><strong>{{ prix.euros(p - r) }}</strong></td></tr>
+      {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Comment en profiter</h2>
+  <ol>
+    <li>Indiquez le départ, l’arrivée, la date et votre véhicule dans l’application : le prix s’affiche immédiatement.</li>
+    <li>La remise apparaît sous le prix de chaque offre (Express, Standard…).</li>
+    <li>Réservez en enregistrant votre carte : 0 € prélevé. Vous réglez à la livraison.</li>
+    <li>Un transporteur validé par SECOTO prend en charge votre véhicule, et vous suivez le transport en direct.</li>
+  </ol>
+
+  <h2>Pourquoi réserver maintenant</h2>
+  <p>Les fêtes de fin d’année sont une période chargée pour les transporteurs. En demandant votre prix tôt, vous bloquez un tarif remisé et garanti jusqu’à la date indiquée sur votre devis, et vous avez plus de choix de dates de prise en charge.</p>
+  <p>Vous êtes un professionnel (garage, concession, marchand, loueur) ? Découvrez aussi la <a href="/professionnels/">Navette Pro et le tarif professionnel</a> : la remise s’applique également aux offres pros.</p>
+
+  <h2>Questions fréquentes</h2>
+  {% include "faq.njk" %}
+
+  <h2>Conditions de l’offre</h2>
+  <p class="promo-conditions">Offre valable pour tout devis de transport sur plateau demandé dans l’application SECOTO du 27/11/2026 au 31/12/2026 inclus (heure de Paris). Remise de 5 % du prix de l’offre, plafonnée à 40 € par devis et arrondie à l’euro inférieur ; elle peut être réduite ou nulle sur les plus petits trajets. Prix normal = prix calculé le jour même sans remise. Non applicable aux devis personnalisés, aux devis demandés avant le 27/11/2026 et aux commandes déjà passées. SECOTO agit en tant qu’intermédiaire ; le transport est exécuté par un transporteur professionnel indépendant validé par SECOTO.</p>
+  <p><a class="btn-nav" href="{{ slugPage | lienApp }}">Obtenir mon prix en 30 secondes</a></p>
+</article>

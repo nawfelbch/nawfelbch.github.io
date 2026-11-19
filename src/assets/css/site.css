@@ -644,3 +644,12 @@ button.faq-q{width:100%;background:none;border:0;text-align:left;font-family:inh
   .audience{width:100%;}
   .audience-opt{flex:1;justify-content:center;}
 }
+
+/* 153 — Noël : bandeau et bonnet sur le dernier O (affichés par site.js en décembre). */
+.bandeau-noel{position:relative;z-index:5;margin-top:70px;background:linear-gradient(90deg,#c8102e,#f5620f);color:#fff;text-align:center;font-size:.88rem;padding:.55rem 1rem;line-height:1.4;}
+.bandeau-noel .court{display:none;}
+@media (max-width:600px){.bandeau-noel{font-size:.8rem}.bandeau-noel .long{display:none}.bandeau-noel .court{display:inline}}
+.logo-noel{font-family:var(--font-h);font-size:1.7rem;letter-spacing:.1em;margin-left:.6rem;margin-right:1.2rem;line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline;}
+@media (max-width:600px){.logo-noel{font-size:1.35rem;margin-left:.45rem}}
+.logo-noel .o{position:relative;display:inline-block;}
+.logo-noel-bonnet{position:absolute;left:-14%;top:-46%;width:150%;transform:rotate(12deg);transform-origin:40% 85%;pointer-events:none;}

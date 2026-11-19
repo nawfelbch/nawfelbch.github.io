@@ -5,6 +5,19 @@
 
   const APP = 'https://app.secoto-transport.fr/';
 
+  /* ── 153 : Noël, du 1er au 31 décembre (heure de Paris) : bandeau + bonnet ── */
+  (() => {
+    let jour = '';
+    try { jour = new Intl.DateTimeFormat('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); } catch (e) { return; }
+    if (jour >= '2027-01-01') return;
+    // Bonnet sur le dernier O : dès maintenant et jusqu'au 31/12.
+    document.querySelectorAll('.logo-noel').forEach(el => { el.hidden = false; });
+    // Bandeau de remise : seulement pendant la remise (Black Friday du 27 au 30/11, Noël ensuite).
+    if (jour < '2026-11-27') return;
+    const b = document.getElementById('bandeau-noel');
+    if (b) { b.hidden = false; b.classList.toggle('is-noel', jour >= '2026-12-01'); }
+  })();
+
   /* ── Provenance de la visite, transmise à l'app (tableau Acquisition) ──
      - campagne payante (gclid, utm_* reçus) : transmise telle quelle ;
      - arrivée depuis Google sans gclid : « Google naturel » ;

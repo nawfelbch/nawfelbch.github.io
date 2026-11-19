@@ -644,3 +644,28 @@ button.faq-q{width:100%;background:none;border:0;text-align:left;font-family:inh
   .audience{width:100%;}
   .audience-opt{flex:1;justify-content:center;}
 }
+
+/* 153 — Noël : bandeau et bonnet sur le dernier O (affichés par site.js en décembre). */
+.bandeau-noel{position:relative;z-index:5;margin-top:70px;background:linear-gradient(90deg,#c8102e,#f5620f);color:#fff;text-align:center;font-size:.88rem;padding:.55rem 1rem;line-height:1.4;}
+.bandeau-noel .court{display:none;}
+.bandeau-noel a{color:#fff;text-decoration:none;}
+.bandeau-noel .noel{display:none;}
+.bandeau-noel.is-noel .bf{display:none;}
+.bandeau-noel.is-noel .noel{display:inline;}
+@media (max-width:600px){.bandeau-noel{font-size:.8rem}.bandeau-noel .long{display:none}.bandeau-noel .court{display:inline}}
+.logo-noel{font-family:var(--font-h);font-size:1.7rem;letter-spacing:.1em;margin-left:.6rem;margin-right:1.2rem;line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline;}
+@media (max-width:600px){.logo-noel{font-size:1.35rem;margin-left:.45rem}}
+.logo-noel[hidden],.bandeau-noel[hidden]{display:none !important;}
+.logo-noel .o{position:relative;display:inline-block;}
+.logo-noel-bonnet{position:absolute;left:-14%;top:-46%;width:150%;transform:rotate(12deg);transform-origin:40% 85%;pointer-events:none;}
+/* 153 — page Black Friday & Noël */
+.promo-dates{display:inline-block;background:linear-gradient(90deg,#c8102e,#f5620f);color:#fff !important;font-weight:600;font-size:.85rem !important;padding:.35rem .9rem;border-radius:30px;margin-bottom:1rem !important;}
+.promo-page .btn-nav{display:inline-block;margin:.5rem 0 1rem;}
+.promo-table-wrap{overflow-x:auto;margin-bottom:1rem;}
+.promo-table{width:100%;border-collapse:collapse;font-size:.9rem;}
+@media (max-width:600px){.promo-table{font-size:.78rem}.promo-table th,.promo-table td{padding:.5rem .35rem}}
+.promo-table th,.promo-table td{padding:.6rem .7rem;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;}
+[data-theme="light"] .promo-table th,[data-theme="light"] .promo-table td{border-bottom-color:rgba(10,22,40,.12);}
+.promo-table th{color:var(--txt);font-weight:600;}
+.promo-page ol{margin:0 0 1rem 1.2rem;font-size:.95rem;}
+.promo-conditions{font-size:.82rem !important;opacity:.8;}

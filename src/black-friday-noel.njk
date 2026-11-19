@@ -12,7 +12,7 @@ faq:
   - q: "Quelles sont les dates de l’offre ?"
     r: "La remise s’applique à tout devis demandé dans l’application SECOTO du vendredi 27 novembre 2026 (Black Friday) au jeudi 31 décembre 2026 inclus, heure de Paris. Le prix affiché reste garanti jusqu’à la date indiquée sur votre devis, même s’il expire après le 31 décembre."
   - q: "Combien vais-je économiser ?"
-    r: "Jusqu’à 5 % du prix de votre transport, dans la limite de 40 € par devis. La remise est calculée automatiquement et déjà incluse dans le prix affiché : vous voyez le prix normal du jour et le montant exact de la remise avant de réserver. Sur les plus petits trajets, la remise peut être réduite ou nulle."
+    r: "Jusqu’à 5 % du prix de votre transport, dans la limite de 40 € par devis. La remise est calculée automatiquement selon le trajet et déjà incluse dans le prix affiché : vous voyez le prix normal du jour et le montant exact de la remise avant de réserver. Elle est la plus forte sur les grands trajets ; sur les plus petits, elle peut être réduite ou nulle."
   - q: "Faut-il un code promo ?"
     r: "Non. Aucun code à saisir : demandez votre prix dans l’application, la remise apparaît sous le prix de chaque offre concernée."
   - q: "Quels transports sont concernés ?"
@@ -33,17 +33,14 @@ faq:
   <p>Pour le <strong>Black Friday</strong> puis pour <strong>Noël</strong>, SECOTO baisse le prix de vos transports de véhicules sur plateau : <strong>jusqu’à −5 %, dans la limite de 40 €</strong>, sans code promo. La remise est déjà incluse dans le prix affiché dans l’application, avec le prix normal du jour indiqué à côté.</p>
   <p><a class="btn-nav" href="{{ slugPage | lienApp }}">Voir mon prix remisé</a></p>
 
-  <h2>Exemples de prix</h2>
-  <p>Prix Standard indicatifs, véhicule roulant, avant les options éventuelles. Votre prix exact (adresses, dates, véhicule) est calculé en quelques secondes dans l’application.</p>
+  <h2>Exemples de prix normaux</h2>
+  <p>Prix Standard indicatifs, véhicule roulant, avant les options éventuelles. La remise exacte dépend de votre trajet : elle est calculée et affichée dans l’application, sous chaque prix, avant que vous réserviez. Elle atteint 40 € sur les grands trajets et peut être réduite, voire nulle, sur les plus petits.</p>
   <div class="promo-table-wrap">
     <table class="promo-table">
-      <thead><tr><th scope="col">Trajet</th><th scope="col">Véhicule</th><th scope="col">Prix normal</th><th scope="col">Remise</th><th scope="col">Prix remisé</th></tr></thead>
+      <thead><tr><th scope="col">Trajet</th><th scope="col">Véhicule</th><th scope="col">Prix normal Standard</th></tr></thead>
       <tbody>
       {%- for e in exemples %}
-        {%- set p = prix.prixPlateau(e.gabarit, e.km) %}
-        {%- set r5 = (p * 0.05) | round(0, "floor") %}
-        {%- set r = 40 if r5 > 40 else r5 %}
-        <tr><td>{{ e.trajet }}</td><td>{{ e.vehicule }}</td><td>{{ prix.euros(p) }}</td><td>−{{ prix.euros(r) }}</td><td><strong>{{ prix.euros(p - r) }}</strong></td></tr>
+        <tr><td>{{ e.trajet }}</td><td>{{ e.vehicule }}</td><td>{{ prix.euros(prix.prixPlateau(e.gabarit, e.km)) }}</td></tr>
       {%- endfor %}
       </tbody>
     </table>
@@ -65,6 +62,6 @@ faq:
   {% include "faq.njk" %}
 
   <h2>Conditions de l’offre</h2>
-  <p class="promo-conditions">Offre valable pour tout devis de transport sur plateau demandé dans l’application SECOTO du 27/11/2026 au 31/12/2026 inclus (heure de Paris). Remise de 5 % du prix de l’offre, plafonnée à 40 € par devis et arrondie à l’euro inférieur ; elle peut être réduite ou nulle sur les plus petits trajets. Prix normal = prix calculé le jour même sans remise. Non applicable aux devis personnalisés, aux devis demandés avant le 27/11/2026 et aux commandes déjà passées. SECOTO agit en tant qu’intermédiaire ; le transport est exécuté par un transporteur professionnel indépendant validé par SECOTO.</p>
+  <p class="promo-conditions">Offre valable pour tout devis de transport sur plateau demandé dans l’application SECOTO du 27/11/2026 au 31/12/2026 inclus (heure de Paris). Remise jusqu’à 5 % du prix de l’offre, plafonnée à 40 € par devis et arrondie à l’euro inférieur ; son montant dépend du trajet et peut être réduit ou nul, notamment sur les plus petits trajets. Prix normal = prix calculé le jour même sans remise. Non applicable aux devis personnalisés, aux devis demandés avant le 27/11/2026 et aux commandes déjà passées. SECOTO agit en tant qu’intermédiaire ; le transport est exécuté par un transporteur professionnel indépendant validé par SECOTO.</p>
   <p><a class="btn-nav" href="{{ slugPage | lienApp }}">Obtenir mon prix en 30 secondes</a></p>
 </article>

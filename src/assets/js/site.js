@@ -12,8 +12,8 @@
     if (jour >= '2027-01-01') return;
     // Bonnet sur le dernier O : dès maintenant et jusqu'au 31/12.
     document.querySelectorAll('.logo-noel').forEach(el => { el.hidden = false; });
-    // Bandeau de remise : seulement pendant la remise (Black Friday du 27 au 30/11, Noël ensuite).
-    if (jour < '2026-11-27') return;
+    // Bandeau de remise : seulement pendant la remise (Black Friday du 19 au 30/11, Noël ensuite).
+    if (jour < '2026-11-19') return;   // 156 : Black Friday dès le 19/11
     const b = document.getElementById('bandeau-noel');
     if (b) { b.hidden = false; b.classList.toggle('is-noel', jour >= '2026-12-01'); }
   })();

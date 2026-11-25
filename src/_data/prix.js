@@ -8,7 +8,8 @@ const C = bareme.convoyage;
 const V = bareme.v3;
 
 function prixConvoyage(classe, km) {
-  return Math.round(Math.max(C.minimum, km * C.eur_per_km[classe]));
+  // 162 : forfait de prise en charge (40 €) + km × tarif, jamais sous le minimum.
+  return Math.round(Math.max(C.minimum, (C.prise_en_charge || 0) + km * C.eur_per_km[classe]));
 }
 
 // Prix Standard sur plateau, trajet sans majoration ni remise.
@@ -30,6 +31,7 @@ export default {
   libelles: {
     convoyageKm: euros(C.eur_per_km.voiture, 2),
     convoyageMin: euros(C.minimum),
+    convoyagePriseEnCharge: euros(C.prise_en_charge || 0),
     plateauMin: euros(Math.min(...Object.values(M))),
     voitureMin: euros(Math.min(M.citadine, M.berline, M.grand)),
     citadineMin: euros(M.citadine),

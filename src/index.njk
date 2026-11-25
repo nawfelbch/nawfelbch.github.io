@@ -109,7 +109,7 @@ simulateur: true
       <span class="tarif-ico" aria-hidden="true">🚗</span>
       <h3>Convoyage par chauffeur</h3>
       <div class="tarif-price">{{ L.convoyageKm | replace(",00 €", "€") }}<small>/km</small></div>
-      <div class="tarif-unit">toutes distances — à partir de {{ L.convoyageMin }}</div>
+      <div class="tarif-unit">+ {{ L.convoyagePriseEnCharge }} de prise en charge — à partir de {{ L.convoyageMin }}</div>
       <ul class="tarif-feats">
         <li>Convoyeur professionnel vérifié</li>
         <li>Prise en charge sur place</li>

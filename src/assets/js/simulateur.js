@@ -125,7 +125,8 @@
   function priceFor(mode, cat, km, rolling, a, b) {
     if (mode === 'convoyage') {
       const c = B.convoyage;
-      return Math.max(c.minimum, km * (c.eur_per_km[CLASSE[cat]] || c.eur_per_km.voiture));
+      // 162 : forfait de prise en charge + km × tarif, jamais sous le minimum.
+      return Math.max(c.minimum, (c.prise_en_charge || 0) + km * (c.eur_per_km[CLASSE[cat]] || c.eur_per_km.voiture));
     }
     return T.prixStandard(V3, cat, km, rolling, T.departement(a), T.departement(b));
   }
